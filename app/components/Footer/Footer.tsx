@@ -1,7 +1,60 @@
-import React from "react";
+import Link from 'next/link'
+import Image from 'next/image'
+import React from 'react'
 
 const Footer = () => {
-  return <div>Footer</div>;
-};
+  return (
+    <footer className="bg-[#333]">
+      <ul className="container mx-auto px-4 py-2 flex justify-between items-center">
+        <li>
+          <Link href="/" draggable={false}>
+            <Image
+              src="/logo-white.png"
+              width={120}
+              height={120}
+              alt="logo"
+              className="hover:brightness-[.85] select-none"
+              draggable={false}
+            />
+          </Link>
+        </li>
+        <li>
+          <small className="text-white select-none tracking-wider">
+            © Vanahai. All rights reserved.
+          </small>
+        </li>
+        <li className="flex items-center">
+          <Link
+            href="https://www.facebook.com/vanahaibubbletea"
+            className="mr-6"
+            draggable={false}
+          >
+            <Image
+              src="/facebook-icon.png"
+              width={50}
+              height={50}
+              alt="facebook logo"
+              className="hover:brightness-[.85] select-none"
+              draggable={false}
+            />
+          </Link>
+          <Link
+            href="https://www.instagram.com/vanahaibubbletea/"
+            draggable={false}
+          >
+            <Image
+              src="/instagram-icon.png"
+              width={50}
+              height={50}
+              alt="instagram logo"
+              className="hover:brightness-[.85] select-none"
+              draggable={false}
+            />
+          </Link>
+        </li>
+      </ul>
+    </footer>
+  )
+}
 
-export default Footer;
+export default Footer
