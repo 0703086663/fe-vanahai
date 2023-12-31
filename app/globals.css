@@ -266,10 +266,3 @@ input[type="button"] {
 /*-------------------------------------------------------------------------------*/
 /* GLOBAL SETTINGS
 ---------------------------------------------------------------------------------*/
-@font-face {
-  font-family: "GFS Didot";
-  src: url("/fonts/GFSDidot.ttf") format("truetype");
-}
-body * {
-  font-family: "GFS Didot";
-}
