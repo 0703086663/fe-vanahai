@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { GFS_Didot } from 'next/font/google'
 import './globals.css'
+import Footer from './components/Footer/Footer'
 
 const gfs = GFS_Didot({ weight: '400', subsets: ['greek'] })
 
@@ -16,7 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={gfs.className}>{children}</body>
+      <body className={gfs.className}>
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }

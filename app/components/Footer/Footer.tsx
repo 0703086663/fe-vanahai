@@ -4,8 +4,8 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="bg-[#333] py-2 px-8">
-      <ul className="flex justify-between items-center">
+    <footer className="bg-[#333]">
+      <ul className="container mx-auto px-4 py-2 flex justify-between items-center">
         <li>
           <Link href="/" draggable={false}>
             <Image
@@ -19,7 +19,7 @@ const Footer = () => {
           </Link>
         </li>
         <li>
-          <small className="text-white select-none">
+          <small className="text-white select-none tracking-wider">
             © Vanahai. All rights reserved.
           </small>
         </li>
