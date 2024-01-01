@@ -18,10 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={gfs.className}>
-        {children}
-        <Footer />
-      </body>
+      <body className={gfs.className}>{children}</body>
     </html>
   )
 }
