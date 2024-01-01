@@ -1,11 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Map from '../components/Map/Map'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { EffectCards } from 'swiper/modules'
-import { IconButton, Tooltip } from '@mui/material'
+import { Divider, IconButton, Tooltip } from '@mui/material'
 import {
   FacebookOutlined,
   InsertLinkOutlined,
@@ -22,9 +22,32 @@ import 'swiper/css'
 import 'swiper/css/effect-cards'
 
 const Page = () => {
+  const [isScroll, setIsScroll] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const section2Position = sectionRef.current.offsetTop
+        const windowHeight = window.innerHeight
+        const scrollPosition = window.scrollY + windowHeight
+
+        if (scrollPosition > section2Position) {
+          setIsScroll(true)
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   return (
     <div className="container mx-auto px-4 py-10">
-      <section className=" flex">
+      <section className="flex h-screen">
         <div className="location-left w-1/2 flex flex-col items-center">
           <div className="h-[300px] max-w-[85%]">
             <Swiper
@@ -75,14 +98,14 @@ const Page = () => {
         </div>
         <div className="location-right w-1/2">
           <div>
-            <h1 className="text-3xl font-semibold tracking-wider">
+            <h1 className="text-3xl font-semibold tracking-wider animate fadeIn-1s">
               VanaHai Bubble Tea
             </h1>
-            <p className="text-slate-500 tracking-wide py-3 leading-6">
+            <p className="text-slate-500 tracking-wide py-3 leading-6 animate fadeIn-2s">
               Welcome to VanaHai Bubble Tea, where we transport you to the
               vibrant streets of Taiwan with every sip.
             </p>
-            <div className="flex justify-between pt-5">
+            <div className="flex justify-between pt-5 animate fadeIn-3s">
               <div>
                 <h3 className="font-semibold">Address</h3>
                 <p className="py-3 leading-6">
@@ -138,7 +161,13 @@ const Page = () => {
           </div>
         </div>
       </section>
-      <ContactForm />
+      <Divider />
+      <section
+        className={`pt-10 ${isScroll && 'animate fadeIn-1s'}`}
+        ref={sectionRef}
+      >
+        <ContactForm />
+      </section>
     </div>
   )
 }
