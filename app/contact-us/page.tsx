@@ -69,7 +69,7 @@ const Page = () => {
               </SwiperSlide>
             </Swiper>
           </div>
-          <div className="h-[300px] my-4">
+          <div className="h-[300px] my-4 w-[85%]">
             <Map />
           </div>
         </div>
