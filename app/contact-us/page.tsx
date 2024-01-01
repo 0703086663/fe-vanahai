@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import Map from '../components/Map/Map'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -22,6 +22,7 @@ import 'swiper/css'
 import 'swiper/css/effect-cards'
 import useScrollTracker from '../hooks/useScrollTracker'
 import Header from '../components/Header/Header'
+import Footer from '../components/Footer/Footer'
 
 const Page = () => {
   const isScroll = useScrollTracker(200)
@@ -149,6 +150,7 @@ const Page = () => {
           <ContactForm />
         </section>
       </div>
+      <Footer />
     </>
   )
 }

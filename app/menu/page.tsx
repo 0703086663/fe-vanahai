@@ -2,10 +2,12 @@ import { Divider } from '@mui/material'
 import React from 'react'
 import Image from 'next/image'
 import Footer from '../components/Footer/Footer'
+import Header from '../components/Header/Header'
 const Page = () => {
   return (
     <>
-      <div className="container mx-auto px-4 py-4">
+      <Header hasBackground={false} />
+      <div className="container mx-auto px-4 pb-4 pt-[120px]">
         <div className="flex justify-between">
           <div className="flex w-[500px] ">
             <div className=" text-black text-[64px] font-normal font-['Newsreader'] leading-[76.80px] ">
