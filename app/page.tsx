@@ -37,9 +37,9 @@ export default function Home() {
           I
         </div>
       </section>
-      <div className="container mx-auto px-10 md:px-28 ">
+      <div className="container mx-auto px-10 2xl:px-28 ">
         <section className="relative py-10">
-          <div className="flex justify-center md:justify-between flex-wrap">
+          <div className="flex justify-center 2xl:justify-between flex-wrap">
             <div className="">
               <Image
                 src="/location/shop1.jpg"
@@ -55,9 +55,9 @@ export default function Home() {
                 height={480}
                 width={780}
                 alt=""
-                className="h-[550px] w-[calc(100vw-80px)] md:w-[780px] md:h-[400px] object-cover shadow-xl rounded-md animate fadeIn-1"
+                className="h-[550px] w-[calc(100vw-80px)] 2xl:w-[780px] 2xl:h-[400px] object-cover shadow-xl rounded-md animate fadeIn-1"
               />
-              <p className="w-[calc(100vw-80px)] md:w-[780px] text-sm tracking-wider mt-4 animate fadeIn-2">
+              <p className="w-[calc(100vw-80px)] 2xl:w-[780px] text-sm tracking-wider mt-4 animate fadeIn-2">
                 VanaHai Bubble Tea - Welcome to VanaHai, where we transport you
                 to the vibrant streets of Taiwan with every sip.
               </p>

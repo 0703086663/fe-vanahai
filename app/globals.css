@@ -328,3 +328,7 @@ input[type='button'] {
 .header {
   transition: 0.5s;
 }
+
+body::-webkit-scrollbar {
+  width: 0;
+}
