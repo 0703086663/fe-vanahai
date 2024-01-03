@@ -37,65 +37,70 @@ export default function Home() {
           I
         </div>
       </section>
-      <section className="relative py-10">
-        <div className="flex justify-center flex-wrap">
-          <div className="px-10">
-            <Image
-              src="/location/shop1.jpg"
-              height={693}
-              width={504}
-              alt=""
-              className="h-[550px] w-[504px] object-cover shadow-2xl rounded-md animate fadeIn-1"
-            />
+      <div className="container mx-auto px-10 2xl:px-28 ">
+        <section className="relative py-10">
+          <div className="flex justify-center 2xl:justify-between flex-wrap">
+            <div className="">
+              <Image
+                src="/location/shop1.jpg"
+                height={693}
+                width={504}
+                alt=""
+                className="h-[550px] w-[504px] object-cover shadow-2xl rounded-md animate fadeIn-1"
+              />
+            </div>
+            <div className="mt-16">
+              <Image
+                src="/location/shop.jpg"
+                height={480}
+                width={780}
+                alt=""
+                className="h-[550px] w-[calc(100vw-80px)] 2xl:w-[780px] 2xl:h-[400px] object-cover shadow-xl rounded-md animate fadeIn-1"
+              />
+              <p className="w-[calc(100vw-80px)] 2xl:w-[780px] text-sm tracking-wider mt-4 animate fadeIn-2">
+                VanaHai Bubble Tea - Welcome to VanaHai, where we transport you
+                to the vibrant streets of Taiwan with every sip.
+              </p>
+            </div>
           </div>
-          <div className="mt-16">
-            <Image
-              src="/location/shop.jpg"
-              height={480}
-              width={780}
-              alt=""
-              className="w-[780px] h-[400px] object-cover shadow-xl rounded-md animate fadeIn-1"
-            />
-            <p className="w-[780px] text-sm tracking-wider mt-4 animate fadeIn-2">
-              VanaHai Bubble Tea - Welcome to VanaHai, where we transport you to
-              the vibrant streets of Taiwan with every sip.
+        </section>
+        <section className="pb-10 pt-4">
+          <div className="tracking-wide leading-10">
+            <div className="border-x-0 border-y-1 border-black border-solid">
+              <h3 className="text-3xl text-[#2596BE] animate fadeIn-1 py-4">
+                WHAT WE BELIEVE
+              </h3>
+            </div>
+            <p className="py-4 animate fadeIn-2">
+              We believe in produce. Tasty produce. Produce like:
+            </p>
+
+            <p className="py-4 animate fadeIn-3">
+              Apples. Oranges. Limes. Lemons. Guavas. Carrots. Cucumbers.
+              Jicamas. Cauliflowers. Brussels sprouts. Shallots. Japanese
+              eggplants.
+            </p>
+            <p className="py-4 animate fadeIn-4">
+              Asparagus. Artichokes—Jerusalem artichokes, too. Radishes.
+              Broccoli. Baby broccoli. Broccolini. Bok choy. Scallions. Ginger.
+              Cherries. Raspberries. Cilantro. Parsley. Dill.
+            </p>
+            <p className="py-4 animate fadeIn-5">What are we forgetting?</p>
+            <p className="py-4 animate fadeIn-6">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae
+              aut asperiores quibusdam, nam sunt ipsa distinctio necessitatibus
+              quis at, doloremque facere quod. Repudiandae quos magni voluptates
+              officiis temporibus blanditiis adipisci.
+            </p>
+            <p className="py-4 animate fadeIn-7">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
+              nisi, maxime corrupti aut natus ipsam vitae corporis! Dicta, at
+              fugit magni voluptatem odio iure, rem aliquid voluptatibus quas
+              ullam laudantium!
             </p>
           </div>
-        </div>
-      </section>
-      <section className="container mx-auto pb-10 pt-4 px-[100px]">
-        <div className="tracking-wide leading-10">
-          <h3 className="text-3xl text-[#2596BE] animate fadeIn-1 py-4">
-            WHAT WE BELIEVE
-          </h3>
-          <p className="py-4 animate fadeIn-2">
-            We believe in produce. Tasty produce. Produce like:
-          </p>
-
-          <p className="py-4 animate fadeIn-3">
-            Apples. Oranges. Limes. Lemons. Guavas. Carrots. Cucumbers. Jicamas.
-            Cauliflowers. Brussels sprouts. Shallots. Japanese eggplants.
-          </p>
-          <p className="py-4 animate fadeIn-4">
-            Asparagus. Artichokes—Jerusalem artichokes, too. Radishes. Broccoli.
-            Baby broccoli. Broccolini. Bok choy. Scallions. Ginger. Cherries.
-            Raspberries. Cilantro. Parsley. Dill.
-          </p>
-          <p className="py-4 animate fadeIn-5">What are we forgetting?</p>
-          <p className="py-4 animate fadeIn-6">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae aut
-            asperiores quibusdam, nam sunt ipsa distinctio necessitatibus quis
-            at, doloremque facere quod. Repudiandae quos magni voluptates
-            officiis temporibus blanditiis adipisci.
-          </p>
-          <p className="py-4 animate fadeIn-7">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
-            nisi, maxime corrupti aut natus ipsam vitae corporis! Dicta, at
-            fugit magni voluptatem odio iure, rem aliquid voluptatibus quas
-            ullam laudantium!
-          </p>
-        </div>
-      </section>
+        </section>
+      </div>
       <Footer />
     </>
   )

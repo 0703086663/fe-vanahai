@@ -4,14 +4,14 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="bg-[#333]">
-      <ul className="container mx-auto px-4 py-2 flex justify-between items-center">
+    <footer className="bg-[#333] h-[100px]">
+      <ul className="h-full container mx-auto px-4 flex justify-between items-center">
         <li>
           <Link href="/" draggable={false}>
             <Image
               src="/logo-white.png"
-              width={120}
-              height={120}
+              width={90}
+              height={90}
               alt="logo"
               className="hover:brightness-[.85] select-none"
               draggable={false}
@@ -31,8 +31,8 @@ const Footer = () => {
           >
             <Image
               src="/facebook-icon.png"
-              width={50}
-              height={50}
+              width={40}
+              height={40}
               alt="facebook logo"
               className="hover:brightness-[.85] select-none"
               draggable={false}
@@ -44,8 +44,8 @@ const Footer = () => {
           >
             <Image
               src="/instagram-icon.png"
-              width={50}
-              height={50}
+              width={40}
+              height={40}
               alt="instagram logo"
               className="hover:brightness-[.85] select-none"
               draggable={false}
