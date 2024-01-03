@@ -1,9 +1,38 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
+import { useEffect, useState } from 'react'
+import { fetchPageContent } from './services/fetchData'
+import PageContentInterface from './interfaces/PageContentInterface'
 
 export default function Home() {
+  const [pageContentData, setPageContentData] = useState<
+    PageContentInterface[]
+  >([])
+
+  useEffect(() => {
+    const fetchDataAndSetState = async () => {
+      const result: PageContentInterface[] = await fetchPageContent('home-page')
+      setPageContentData(result)
+      console.log(result)
+    }
+
+    fetchDataAndSetState()
+  }, [])
+
+  const heroBannerContent = pageContentData.find(
+    (item) => item.slug === 'hero-banner'
+  )
+  const bodyRightContent = pageContentData.find(
+    (item) => item.slug === 'body-right'
+  )
+  const mainContent = pageContentData.find(
+    (item) => item.slug === 'main-content'
+  )
+
   return (
     <>
       <Header hasBackground />
@@ -17,11 +46,10 @@ export default function Home() {
         />
         <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] ">
           <div className="animate fadeIn-1">
-            <h1 className="text-white text-center text-4xl italic select-none">
-              “As long as there was coffee in the world,
-            </h1>
-            <h1 className="text-white text-center text-4xl select-none">
-              how bad could things be?”
+            <h1 className="text-white text-center italic text-4xl select-none tracking-wide">
+              {heroBannerContent
+                ? heroBannerContent.content
+                : 'Welcome to Vanahai'}
             </h1>
           </div>
           <div className="flex justify-center pt-5 animate fadeIn-2">
@@ -68,8 +96,9 @@ export default function Home() {
                   lg:w-[500px]
                   text-sm tracking-wider mt-4 animate fadeIn-2"
               >
-                VanaHai Bubble Tea - Welcome to VanaHai, where we transport you
-                to the vibrant streets of Taiwan with every sip.
+                {bodyRightContent
+                  ? bodyRightContent.content
+                  : 'Vanahai Bubble Tea'}
               </p>
             </div>
           </div>
@@ -84,7 +113,6 @@ export default function Home() {
             <p className="py-4 animate fadeIn-2">
               We believe in produce. Tasty produce. Produce like:
             </p>
-
             <p className="py-4 animate fadeIn-3">
               Apples. Oranges. Limes. Lemons. Guavas. Carrots. Cucumbers.
               Jicamas. Cauliflowers. Brussels sprouts. Shallots. Japanese
