@@ -37,27 +37,37 @@ export default function Home() {
           I
         </div>
       </section>
-      <div className="container mx-auto px-10 2xl:px-28 ">
+      <div className="container mx-auto px-10 md:px-0 lg:px-10 2xl:px-28">
         <section className="relative py-10">
-          <div className="flex justify-center 2xl:justify-between flex-wrap">
+          <div className="flex justify-center lg:justify-between flex-wrap">
             <div className="">
               <Image
                 src="/location/shop1.jpg"
                 height={693}
                 width={504}
                 alt=""
-                className="h-[550px] w-[504px] object-cover shadow-2xl rounded-md animate fadeIn-1"
+                className="h-[550px] w-[504px] 
+                  lg:h-[550px] lg:w-[404px] 
+                  xl:h-[550px] xl:w-[504px] object-cover shadow-2xl rounded-md animate fadeIn-1"
               />
             </div>
-            <div className="mt-16">
+            <div className="mt-16 lg:max-xl:mt-24">
               <Image
                 src="/location/shop.jpg"
                 height={480}
                 width={780}
                 alt=""
-                className="h-[550px] w-[calc(100vw-80px)] 2xl:w-[780px] 2xl:h-[400px] object-cover shadow-xl rounded-md animate fadeIn-1"
+                className="h-[550px] w-[calc(100vw-80px)] 
+                  md:h-[400px] md:w-[680px] 
+                  lg:h-[300px] lg:w-[500px]
+                  xl:w-[680px] object-cover shadow-xl rounded-md animate fadeIn-1"
               />
-              <p className="w-[calc(100vw-80px)] 2xl:w-[780px] text-sm tracking-wider mt-4 animate fadeIn-2">
+              <p
+                className="w-[calc(100vw-80px)] 
+                  md:w-[680px] 
+                  lg:w-[500px]
+                  text-sm tracking-wider mt-4 animate fadeIn-2"
+              >
                 VanaHai Bubble Tea - Welcome to VanaHai, where we transport you
                 to the vibrant streets of Taiwan with every sip.
               </p>

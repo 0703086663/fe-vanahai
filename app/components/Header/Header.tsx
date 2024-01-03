@@ -19,7 +19,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 const Header = ({ hasBackground = true }: { hasBackground: boolean }) => {
   const [openNav, setOpenNav] = useState(false)
   const pathname = usePathname()
-  const matchesResponsive = useMediaQuery('(min-width:768px)')
+  const matchesResponsive = useMediaQuery('(min-width:1024px)')
 
   const checkBackground = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -127,7 +127,7 @@ const Header = ({ hasBackground = true }: { hasBackground: boolean }) => {
         <>
           <DensityMediumIcon
             onClick={() => setOpenNav(!openNav)}
-            className={`text-[40px]  ${
+            className={`text-[40px] ${
               isScroll
                 ? 'hover:brightness-200 text-black active:text-[#00000090]'
                 : 'hover:brightness-90 text-white active:text-[#ffffff90]'
