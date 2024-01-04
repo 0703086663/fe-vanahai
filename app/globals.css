@@ -21,7 +21,6 @@
 html,
 body,
 body div,
-span,
 object,
 iframe,
 h1,
@@ -39,14 +38,11 @@ cite,
 code,
 del,
 dfn,
-em,
 img,
-ins,
 kbd,
 q,
 samp,
 small,
-strong,
 sub,
 sup,
 var,
@@ -285,25 +281,49 @@ input[type='button'] {
   }
 }
 .fadeIn-1 {
-  animation-delay: 0.5s;
+  animation-delay: 0.35s;
 }
 .fadeIn-2 {
-  animation-delay: 1s;
+  animation-delay: 0.7s;
 }
 .fadeIn-3 {
-  animation-delay: 1.5s;
+  animation-delay: 1.05s;
 }
 .fadeIn-4 {
-  animation-delay: 2s;
+  animation-delay: 1.4s;
 }
 .fadeIn-5 {
-  animation-delay: 2.5s;
+  animation-delay: 1.75s;
 }
 .fadeIn-6 {
-  animation-delay: 3s;
+  animation-delay: 2.1s;
 }
 .fadeIn-7 {
+  animation-delay: 2.45s;
+}
+.fadeIn-8 {
+  animation-delay: 2.8s;
+}
+.fadeIn-9 {
+  animation-delay: 3.15s;
+}
+.fadeIn-10 {
   animation-delay: 3.5s;
+}
+.fadeIn-11 {
+  animation-delay: 3.85s;
+}
+.fadeIn-12 {
+  animation-delay: 4.2s;
+}
+.fadeIn-13 {
+  animation-delay: 4.55s;
+}
+.fadeIn-14 {
+  animation-delay: 4.9s;
+}
+.fadeIn-15 {
+  animation-delay: 5.15s;
 }
 
 .animate-image {

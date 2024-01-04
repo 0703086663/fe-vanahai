@@ -7,6 +7,7 @@ import Footer from './components/Footer/Footer'
 import { useEffect, useState } from 'react'
 import { fetchPageContent } from './services/fetchData'
 import PageContentInterface from './interfaces/PageContentInterface'
+import convertToHtml from './utils/convertToHtml'
 
 export default function Home() {
   const [pageContentData, setPageContentData] = useState<
@@ -17,7 +18,6 @@ export default function Home() {
     const fetchDataAndSetState = async () => {
       const result: PageContentInterface[] = await fetchPageContent('home-page')
       setPageContentData(result)
-      console.log(result)
     }
 
     fetchDataAndSetState()
@@ -32,6 +32,11 @@ export default function Home() {
   const mainContent = pageContentData.find(
     (item) => item.slug === 'main-content'
   )
+
+  const testing = `<p><span style="color:red;font-size: 30px;">WHAT WE BELIEVE</span></p>
+  <p>We believe in produce. Tasty produce. Produce like:</p>
+  <p>Apples. Oranges. Limes. Lemons. Guavas. Carrots. Cucumbers. Jicamas. Cauliflowers. Brussels sprouts. Shallots. Japanese eggplants.</p>
+  <p>Asparagus. Artichokes—Jerusalem artichokes, too. Radishes. Broccoli. Baby broccoli. Broccolini. Bok choy. Scallions. Ginger. Cherries. Raspberries. Cilantro. Parsley. Dill.</p>`
 
   return (
     <>
@@ -104,38 +109,8 @@ export default function Home() {
           </div>
         </section>
         <section className="pb-10 pt-4">
-          <div className="tracking-wide leading-10">
-            <div className="border-x-0 border-y-1 border-black border-solid">
-              <h3 className="text-3xl text-[#2596BE] animate fadeIn-1 py-4">
-                WHAT WE BELIEVE
-              </h3>
-            </div>
-            <p className="py-4 animate fadeIn-2">
-              We believe in produce. Tasty produce. Produce like:
-            </p>
-            <p className="py-4 animate fadeIn-3">
-              Apples. Oranges. Limes. Lemons. Guavas. Carrots. Cucumbers.
-              Jicamas. Cauliflowers. Brussels sprouts. Shallots. Japanese
-              eggplants.
-            </p>
-            <p className="py-4 animate fadeIn-4">
-              Asparagus. Artichokes—Jerusalem artichokes, too. Radishes.
-              Broccoli. Baby broccoli. Broccolini. Bok choy. Scallions. Ginger.
-              Cherries. Raspberries. Cilantro. Parsley. Dill.
-            </p>
-            <p className="py-4 animate fadeIn-5">What are we forgetting?</p>
-            <p className="py-4 animate fadeIn-6">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae
-              aut asperiores quibusdam, nam sunt ipsa distinctio necessitatibus
-              quis at, doloremque facere quod. Repudiandae quos magni voluptates
-              officiis temporibus blanditiis adipisci.
-            </p>
-            <p className="py-4 animate fadeIn-7">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
-              nisi, maxime corrupti aut natus ipsam vitae corporis! Dicta, at
-              fugit magni voluptatem odio iure, rem aliquid voluptatibus quas
-              ullam laudantium!
-            </p>
+          <div className="tracking-wide leading-10 [&>p]:py-4">
+            {convertToHtml(mainContent ? mainContent!.content : 'Loading')}
           </div>
         </section>
       </div>
