@@ -5,19 +5,30 @@ import Link from 'next/link'
 import Header from './components/Header/Header'
 import Footer from './components/Footer/Footer'
 import { useEffect, useState } from 'react'
-import { fetchPageContent } from './services/fetchData'
-import PageContentInterface from './interfaces/PageContentInterface'
-import convertToHtml from './utils/convertToHtml'
+import { fetchPageContent, fetchPageImage } from './services/fetchData'
+import {
+  PageContentInterface,
+  PageImageInterface,
+} from './interfaces/interface'
+import covertToHtmlWithAnimation from './utils/covertToHtmlWithAnimation'
 
 export default function Home() {
   const [pageContentData, setPageContentData] = useState<
     PageContentInterface[]
   >([])
+  const [pageImageData, setPageImageData] = useState<PageImageInterface[]>([])
 
   useEffect(() => {
     const fetchDataAndSetState = async () => {
-      const result: PageContentInterface[] = await fetchPageContent('home-page')
-      setPageContentData(result)
+      const resultPageContent: PageContentInterface[] = await fetchPageContent(
+        'home-page'
+      )
+      setPageContentData(resultPageContent)
+
+      const resultPageImage: PageImageInterface[] = await fetchPageImage(
+        'home-page'
+      )
+      setPageImageData(resultPageImage)
     }
 
     fetchDataAndSetState()
@@ -33,20 +44,24 @@ export default function Home() {
     (item) => item.slug === 'main-content'
   )
 
-  const testing = `<p><span style="color:red;font-size: 30px;">WHAT WE BELIEVE</span></p>
-  <p>We believe in produce. Tasty produce. Produce like:</p>
-  <p>Apples. Oranges. Limes. Lemons. Guavas. Carrots. Cucumbers. Jicamas. Cauliflowers. Brussels sprouts. Shallots. Japanese eggplants.</p>
-  <p>Asparagus. Artichokes—Jerusalem artichokes, too. Radishes. Broccoli. Baby broccoli. Broccolini. Bok choy. Scallions. Ginger. Cherries. Raspberries. Cilantro. Parsley. Dill.</p>`
+  const heroBannerImage = pageImageData.find(
+    (item) => item.slug === 'hero-banner'
+  )
+  const bodyLeftImage = pageImageData.find((item) => item.slug === 'body-left')
+  const bodyRightImage = pageImageData.find(
+    (item) => item.slug === 'body-right'
+  )
 
   return (
     <>
       <Header hasBackground />
       <section className="relative">
         <Image
-          src="/banner.jpg"
+          src={heroBannerImage ? heroBannerImage.image : '/banner.jpg'}
           height={1584}
           width={700}
           alt=""
+          priority
           className="w-full h-[700px] object-cover brightness-50 animate-image"
         />
         <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] ">
@@ -73,10 +88,10 @@ export default function Home() {
       <div className="container mx-auto px-10 md:px-0 lg:px-10 2xl:px-28">
         <section className="relative py-10">
           <div className="flex justify-center lg:justify-between flex-wrap">
-            <div className="">
+            <div>
               <Image
-                src="/location/shop1.jpg"
-                height={693}
+                src={bodyLeftImage ? bodyLeftImage.image : '/location/shop.jpg'}
+                height={550}
                 width={504}
                 alt=""
                 className="h-[550px] w-[504px] 
@@ -86,7 +101,9 @@ export default function Home() {
             </div>
             <div className="mt-16 lg:max-xl:mt-24">
               <Image
-                src="/location/shop.jpg"
+                src={
+                  bodyRightImage ? bodyRightImage.image : '/location/shop1.jpg'
+                }
                 height={480}
                 width={780}
                 alt=""
@@ -110,7 +127,9 @@ export default function Home() {
         </section>
         <section className="pb-10 pt-4">
           <div className="tracking-wide leading-10 [&>p]:py-4">
-            {convertToHtml(mainContent ? mainContent!.content : 'Loading')}
+            {covertToHtmlWithAnimation(
+              mainContent ? mainContent!.content : 'Loading'
+            )}
           </div>
         </section>
       </div>

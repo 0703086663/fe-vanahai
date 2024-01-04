@@ -15,6 +15,7 @@ const Footer = () => {
               width={90}
               height={90}
               alt="logo"
+              priority
               className="hover:brightness-[.85] select-none"
               draggable={false}
             />
@@ -35,6 +36,7 @@ const Footer = () => {
               src="/facebook-icon.png"
               width={40}
               height={40}
+              priority
               alt="facebook logo"
               className="hover:brightness-[.85] select-none"
               draggable={false}
@@ -48,6 +50,7 @@ const Footer = () => {
               src="/instagram-icon.png"
               width={40}
               height={40}
+              priority
               alt="instagram logo"
               className="hover:brightness-[.85] select-none"
               draggable={false}
