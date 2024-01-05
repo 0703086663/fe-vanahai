@@ -16,7 +16,6 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  TablePagination,
   TextField,
   Dialog,
   DialogTitle,
@@ -25,88 +24,60 @@ import {
   DialogActions,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+import React, { useEffect, useState } from 'react'
+import { useFormik } from 'formik'
 import axios from 'axios'
 
-function applyPagination(
-  documents: CategoryInterface[],
-  page: number,
-  rowsPerPage: number
-) {
-  return documents.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-}
-
-const useData = (
-  initialData: CategoryInterface[],
-  page: number,
-  rowsPerPage: number
-) => {
-  const [data, setData] = useState<CategoryInterface[]>(initialData)
-
-  useEffect(() => {
-    const fetchDataAndSetState = async () => {
-      const res: CategoryInterface[] = await fetchCategory()
-      setData(res)
-    }
-
-    fetchDataAndSetState()
-  }, [])
-
-  const paginatedData = useMemo(() => {
-    return data && applyPagination(data, page, rowsPerPage)
-  }, [data, page, rowsPerPage])
-
-  return paginatedData
-}
-
 const Page = () => {
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const formik = useFormik({
+    initialValues: {
+      id: '',
+      name: '',
+    },
+    onSubmit: async (values) => {
+      let res
+      if (values.id) {
+        res = await axios.patch(
+          `${process.env.NEXT_PUBLIC_API_LINK}/category/${values.id}`,
+          {
+            ...values,
+          }
+        )
+      } else {
+        res = await axios.post(`${process.env.NEXT_PUBLIC_API_LINK}/category`, {
+          ...values,
+        })
+      }
+      if (res) {
+        setRefreshFlag(!refreshFlag)
+        setOpenDialog(false)
+      }
+    },
+  })
+  const [refreshFlag, setRefreshFlag] = useState(false)
   const [categories, setCategories] = useState<CategoryInterface[]>([])
   const [openDialog, setOpenDialog] = useState(false)
-  const [dataForm, setDataForm] = useState<CategoryInterface>({
-    name: '',
-  })
-  const handlePageChange = useCallback(
-    (
-      e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
-      value: number
-    ) => {
-      setPage(value)
-    },
-    []
-  )
 
-  const handleRowsPerPageChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setRowsPerPage(+e.target.value)
-    },
-    []
-  )
-
-  const data = useData(categories, page, rowsPerPage)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_LINK}/category`,
-      {
-        name: dataForm.name,
-      }
+  const handleDelete = async (categoryId?: string) => {
+    const res = await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_LINK}/category/${categoryId}`
     )
+    if (res) {
+      setRefreshFlag(!refreshFlag)
+      setOpenDialog(false)
+    }
+  }
 
-    return res.data
+  const fetchDataAndSetState = async () => {
+    const res: CategoryInterface[] = await fetchCategory()
+    setCategories(res)
   }
 
   useEffect(() => {
-    const fetchDataAndSetState = async () => {
-      const res: CategoryInterface[] = await fetchCategory()
-      setCategories(res)
-    }
-
     fetchDataAndSetState()
-  }, [])
+  }, [refreshFlag])
 
   return (
     <>
@@ -145,35 +116,45 @@ const Page = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>Name</TableCell>
+                      <TableCell>Action</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data?.map((category: CategoryInterface) => {
+                    {categories?.map((category: CategoryInterface) => {
                       return (
-                        <TableRow hover key={category?.id}>
-                          <TableCell>{category?.name}</TableCell>
+                        <TableRow hover key={category.id}>
+                          <TableCell>{category.name}</TableCell>
+                          <TableCell>
+                            <IconButton
+                              onClick={() => {
+                                setOpenDialog(true)
+                                formik.setValues({ id: '', ...category })
+                              }}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              onClick={() => handleDelete(category.id)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </TableCell>
                         </TableRow>
                       )
                     })}
                   </TableBody>
                 </Table>
               </Box>
-              <TablePagination
-                component="div"
-                count={data?.length}
-                onPageChange={handlePageChange}
-                onRowsPerPageChange={handleRowsPerPageChange}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                rowsPerPageOptions={[5, 10, 25]}
-              />
             </Card>
           </Stack>
         </Container>
       </Box>
 
       <Dialog
-        onClose={() => setOpenDialog(false)}
+        onClose={() => {
+          formik.resetForm()
+          setOpenDialog(false)
+        }}
         aria-labelledby="customized-dialog-title"
         open={openDialog}
       >
@@ -182,7 +163,10 @@ const Page = () => {
         </DialogTitle>
         <IconButton
           aria-label="close"
-          onClick={() => setOpenDialog(false)}
+          onClick={() => {
+            setOpenDialog(false)
+            formik.resetForm()
+          }}
           sx={{
             position: 'absolute',
             right: 8,
@@ -195,7 +179,7 @@ const Page = () => {
         <Box
           noValidate
           component="form"
-          onSubmit={handleSubmit}
+          onSubmit={formik.handleSubmit}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -210,12 +194,10 @@ const Page = () => {
               variant="outlined"
               sx={{ paddingBottom: 1 }}
               fullWidth
-              value={dataForm.name}
-              onChange={(e) =>
-                setDataForm({
-                  name: e.target.value,
-                })
-              }
+              required
+              name="name"
+              onChange={formik.handleChange}
+              value={formik.values.name}
             />
           </DialogContent>
           <DialogActions>

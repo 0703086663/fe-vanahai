@@ -1,4 +1,8 @@
-import { CategoryInterface } from './../interfaces/interface'
+import {
+  CategoryInterface,
+  ContactInterface,
+  ProductInterface,
+} from './../interfaces/interface'
 import {
   PageContentInterface,
   PageImageInterface,
@@ -34,6 +38,65 @@ export const fetchCategory = async () => {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_LINK}/category`)
     const data: CategoryInterface[] = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+
+export const fetchProduct = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_LINK}/product`)
+    const data: ProductInterface[] = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+
+export const fetchProductById = async (productId: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_LINK}/product/${productId}`
+    )
+    const data: ProductInterface[] = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+
+// export const fetchProductByCategoryId = async (categoryId: string) => {
+//   try {
+//     const response = await fetch(`${process.env.NEXT_PUBLIC_API_LINK}/product`)
+//     const data: ProductInterface[] = await response.json()
+//     return data
+//   } catch (error) {
+//     console.error('Error fetching data:', error)
+//     throw error
+//   }
+// }
+
+export const fetchContact = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_LINK}/contact`)
+    const data: ContactInterface[] = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+
+export const fetchContactById = async (contactId: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_LINK}/contact/${contactId}`
+    )
+    const data: ContactInterface[] = await response.json()
     return data
   } catch (error) {
     console.error('Error fetching data:', error)
