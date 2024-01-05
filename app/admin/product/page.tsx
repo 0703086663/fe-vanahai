@@ -32,100 +32,99 @@ import { TableCustom } from '@/app/components/Table/Table'
 import axios from 'axios'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import CloseIcon from '@mui/icons-material/Close'
-export function applyPagination(
-  documents: any,
-  page: number,
-  rowsPerPage: number
-) {
-  return documents.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-}
-
-const useData = (initialData: any, page: number, rowsPerPage: number) => {
-  const [data, setData] = useState<any>(initialData)
-
-  useEffect(() => {
-    const fetchDataAndSetData = async () => {
-      const fetchedData = await fetchProducts()
-      setData(fetchedData)
-    }
-
-    fetchDataAndSetData()
-  }, [])
-
-  const paginatedData = useMemo(() => {
-    return data && applyPagination(data, page, rowsPerPage)
-  }, [data, page, rowsPerPage])
-
-  return paginatedData
-}
-
-const fetchProducts = async () => {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_LINK}/product`, {
-    headers: {
-      'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_API_LINK}`,
-    },
-  })
-  return res.data
-}
+import Image from 'next/image'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { useFormik } from 'formik'
+import _ from 'lodash'
 
 const Page = () => {
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [searchData, setSearchData] = useState()
   const [products, setProducts] = useState()
-  const [category, setCategory] = useState()
+  const [category, setCategory] = useState<any>()
   const [openDialog, setOpenDialog] = useState(false)
-  const [dataForm, setDataForm] = useState<any>({
-    discountPrice: '',
-    name: '',
-    price: '',
-    image: {},
-    isDiscount: false,
-    isBestseller: false,
-    categoryId: '',
+  const [preview, setPreview] = useState('')
+  const [refreshFlag, setRefreshFlag] = useState(false)
+  const formik = useFormik({
+    initialValues: {
+      id: '',
+      discountPrice: '',
+      name: '',
+      price: '',
+      image: {},
+      isDiscount: false,
+      isBestSeller: false,
+      categoryId: '',
+    },
+    enableReinitialize: true,
+    onSubmit: async (v) => {
+      if (v.id) {
+        let data
+        if (typeof v.image === 'string') {
+          data = _.omit(v, 'image')
+        } else {
+          data = v
+        }
+        await axios.patch(
+          `${process.env.NEXT_PUBLIC_API_LINK}/product/${v?.id}`,
+          { ...data },
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        )
+      } else {
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_LINK}/product`,
+          { ...v },
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        )
+      }
+      formik.resetForm()
+      setPreview('')
+      setRefreshFlag(!refreshFlag)
+      setOpenDialog(false)
+    },
+    validate: (v) => {
+      console.log('')
+    },
   })
-  const [selectedFileName, setSelectedFileName] = useState('')
-
-  const handlePageChange = useCallback((event: any, value: any) => {
-    setPage(value)
-  }, [])
-
-  const handleRowsPerPageChange = useCallback((event: any) => {
-    setRowsPerPage(event.target.value)
-  }, [])
+  const fetchProducts = async () => {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_LINK}/product`)
+    if (res && res.data) {
+      setProducts(res.data)
+      setSearchData(res.data)
+    }
+  }
 
   const fetchCategory = async () => {
-    const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_LINK}/category`,
-      {
-        headers: {
-          'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_API_LINK}`,
-        },
-      }
-    )
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_LINK}/category`)
     if (res && res.data) setCategory(res.data)
   }
-  const data = useData(products, page, rowsPerPage)
 
-  const handleSubmit = async (e: any) => {
-    console.log('datafor,', dataForm)
-    e.preventDefault()
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_LINK}/product`,
-      { data: dataForm },
-      {
-        headers: {
-          'Access-Control-Allow-Origin': `${process.env.NEXT_PUBLIC_API_LINK}`,
-        },
-      }
-    )
-
-    console.log('v', res)
+  const handleDelete = async (id: any) => {
+    await axios.delete(`${process.env.NEXT_PUBLIC_API_LINK}/product/${id}`)
+    setRefreshFlag(!refreshFlag)
   }
 
   useEffect(() => {
     fetchCategory()
-  }, [])
-  console.log('cate', category)
+    fetchProducts()
+  }, [refreshFlag])
+
+  let defaultCategory
+
+  if (formik.getFieldMeta('categoryId').value && category) {
+    defaultCategory = category.find(
+      (option: any) => option.id === formik.getFieldMeta('categoryId').value
+    )
+  }
+
   return (
     <>
       <Box
@@ -141,6 +140,19 @@ const Page = () => {
             <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
                 <Typography variant="h4">Products</Typography>
+                <TextField
+                  id="outlined-basic"
+                  label="Search"
+                  fullWidth
+                  sx={{ paddingBottom: 1, padding: 0 }}
+                  variant="outlined"
+                  onChange={(e) => {
+                    const search = searchData.filter((product: any) =>
+                      product.name.includes(e.target.value.trim())
+                    )
+                    setProducts(search)
+                  }}
+                />
               </Stack>
               <div>
                 <Button
@@ -162,60 +174,75 @@ const Page = () => {
                 <Table>
                   <TableHead>
                     <TableRow>
+                      <TableCell>Image</TableCell>
                       <TableCell>Name</TableCell>
                       <TableCell>Price</TableCell>
-                      <TableCell>image</TableCell>
                       <TableCell>Best Seller</TableCell>
                       <TableCell>Discount</TableCell>
-                      <TableCell>discountPrice</TableCell>
+                      <TableCell>Discount Price</TableCell>
                       <TableCell>Category</TableCell>
+                      <TableCell>Action</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data?.map((customer: any) => {
+                    {products?.map((product: any) => {
                       return (
-                        <TableRow hover key={customer?.id}>
+                        <TableRow hover key={product.id}>
                           <TableCell>
-                            <Stack
-                              alignItems="center"
-                              direction="row"
-                              spacing={2}
+                            <Image
+                              src={product ? product.image : ''}
+                              alt={''}
+                              priority
+                              height={50}
+                              width={50}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="subtitle2">
+                              {product?.name}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>{product?.price}</TableCell>
+                          <TableCell>
+                            {product?.isBestSeller.toString()}
+                          </TableCell>
+                          <TableCell>
+                            {product?.isDiscount.toString()}
+                          </TableCell>
+                          <TableCell>{product?.discountPrice}</TableCell>
+                          <TableCell>{product?.categoryId}</TableCell>
+                          <TableCell>
+                            <IconButton
+                              onClick={() => {
+                                setOpenDialog(true)
+                                formik.setValues(product)
+                              }}
                             >
-                              <Typography variant="subtitle2">
-                                {customer?.name}
-                              </Typography>
-                            </Stack>
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              onClick={() => handleDelete(product.id)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
                           </TableCell>
-                          <TableCell>{customer?.price}</TableCell>
-                          <TableCell>
-                            <Avatar src={customer?.image} />
-                          </TableCell>
-                          <TableCell>{customer?.isBestSeller}</TableCell>
-                          <TableCell>{customer?.isDiscount}</TableCell>
-                          <TableCell>{customer?.discountPrice}</TableCell>
-                          <TableCell>{customer?.categoryId}</TableCell>
                         </TableRow>
                       )
                     })}
                   </TableBody>
                 </Table>
               </Box>
-              <TablePagination
-                component="div"
-                count={data?.length}
-                onPageChange={handlePageChange}
-                onRowsPerPageChange={handleRowsPerPageChange}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                rowsPerPageOptions={[5, 10, 25]}
-              />
             </Card>
           </Stack>
         </Container>
       </Box>
 
       <BootstrapDialog
-        onClose={() => setOpenDialog(false)}
+        onClose={() => {
+          setPreview('')
+          formik.resetForm()
+          setOpenDialog(false)
+        }}
         aria-labelledby="customized-dialog-title"
         open={openDialog}
       >
@@ -224,7 +251,11 @@ const Page = () => {
         </DialogTitle>
         <IconButton
           aria-label="close"
-          onClick={() => setOpenDialog(false)}
+          onClick={() => {
+            setPreview('')
+            setOpenDialog(false)
+            formik.resetForm()
+          }}
           sx={{
             position: 'absolute',
             right: 8,
@@ -237,8 +268,8 @@ const Page = () => {
         <Box
           noValidate
           component="form"
-          onSubmit={handleSubmit}
           encType="multipart/form-data"
+          onSubmit={formik.handleSubmit}
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -246,105 +277,100 @@ const Page = () => {
             width: 'fit-content',
           }}
         >
-          <DialogContent dividers>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              // value={dataForm.categoryId}
-              onChange={(event, newValue) => {
-                setDataForm({
-                  ...dataForm,
-                  categoryId: newValue?.id,
-                })
-              }}
-              options={category ? category : []}
-              getOptionLabel={(option) => option?.name}
-              sx={{ width: 300, paddingBottom: 1 }}
-              renderInput={(params) => (
-                <TextField {...params} label="Category" variant="outlined" />
-              )}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Name"
-              variant="outlined"
-              sx={{ paddingBottom: 1 }}
-              fullWidth
-              value={dataForm.name}
-              onChange={(e) =>
-                setDataForm({
-                  ...dataForm,
-                  name: e.target.value,
-                })
-              }
-            />{' '}
-            <TextField
-              id="outlined-basic"
-              label="discountPrice"
-              fullWidth
-              sx={{ paddingBottom: 1 }}
-              variant="outlined"
-              value={dataForm.id}
-              onChange={(e) =>
-                setDataForm({
-                  ...dataForm,
-                  discountPrice: e.target.value,
-                })
-              }
-            />
-            <TextField
-              id="outlined-basic"
-              label="Price"
-              fullWidth
-              sx={{ paddingBottom: 1 }}
-              variant="outlined"
-              value={dataForm.price}
-              onChange={(e) =>
-                setDataForm({
-                  ...dataForm,
-                  price: e.target.value,
-                })
-              }
-            />
-            <FormControlLabel
-              control={<Switch />}
-              label="Discount"
-              value={dataForm.isDiscount}
-              onChange={(e: any) =>
-                setDataForm({
-                  ...dataForm,
-                  isDiscount: e.target.checked,
-                })
-              }
-            />
-            <FormControlLabel
-              control={<Switch />}
-              label="Best Seller"
-              value={dataForm.isBestSeller}
-              onChange={(e: any) =>
-                setDataForm({
-                  ...dataForm,
-                  isBestSeller: e.target.checked,
-                })
-              }
-            />
-            <Button
-              component="label"
-              variant="contained"
-              onChange={(event) => {
-                const file = event.target.files[0]
-                const fileData = new FormData()
-                fileData.append('file', file)
-
-                setSelectedFileName(file ? file.name : '')
-                setDataForm({ ...dataForm, image: fileData })
-              }}
-              startIcon={<CloudUploadIcon />}
-            >
-              Upload file
-              <VisuallyHiddenInput type="file" />
-            </Button>
-            {selectedFileName && <p>Selected File: {selectedFileName}</p>}
+          <DialogContent dividers className="flex justify-between gap-2 ">
+            <div className="w-1/2">
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                defaultValue={defaultCategory || null}
+                onChange={(event, newValue: any) => {
+                  formik.setFieldValue('categoryId', newValue?.id || '')
+                }}
+                options={category ? category : []}
+                getOptionLabel={(option) => option?.name}
+                sx={{ width: '100%', paddingBottom: 1 }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Category"
+                    variant="outlined"
+                    name="categoryId"
+                  />
+                )}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Name"
+                name="name"
+                variant="outlined"
+                sx={{ paddingBottom: 1 }}
+                fullWidth
+                onChange={formik.handleChange}
+                value={formik.values.name}
+              />
+              <TextField
+                id="outlined-basic"
+                label="discountPrice"
+                fullWidth
+                sx={{ paddingBottom: 1 }}
+                variant="outlined"
+                value={formik.values.discountPrice}
+                onChange={formik.handleChange}
+                name="discountPrice"
+                type="number"
+              />
+              <TextField
+                id="outlined-basic"
+                label="Price"
+                fullWidth
+                type="number"
+                sx={{ paddingBottom: 1 }}
+                variant="outlined"
+                value={formik.values.price}
+                name="price"
+                onChange={formik.handleChange}
+              />
+              <FormControlLabel
+                control={<Switch defaultChecked={formik.values.isDiscount} />}
+                label="Discount"
+                value={formik.values.isDiscount}
+                onChange={formik.handleChange}
+                name="isDiscount"
+              />
+              <FormControlLabel
+                control={<Switch defaultChecked={formik.values.isBestSeller} />}
+                label="Best Seller"
+                value={formik.values.isBestSeller}
+                name="isBestSeller"
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div className="w-1/2 flex flex-col items-center ">
+              <Button
+                component="label"
+                variant="contained"
+                onChange={(event: any) => {
+                  const file = event.target.files[0]
+                  const object = URL.createObjectURL(file)
+                  setPreview(object)
+                  formik.setFieldValue('image', file || {})
+                }}
+                startIcon={<CloudUploadIcon />}
+              >
+                Upload file
+                <VisuallyHiddenInput type="file" name="image" />
+              </Button>
+              <img
+                src={
+                  preview ||
+                  (!_.isEmpty(formik.getFieldMeta('image').value) &&
+                    formik.getFieldMeta('image').value) ||
+                  '/noImage.jpg'
+                }
+                alt=""
+                className="w-full h-full object-contain mt-2 max-h-[290px]"
+              />
+            </div>
           </DialogContent>
           <DialogActions>
             <Button type="submit" autoFocus>
