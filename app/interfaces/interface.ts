@@ -11,3 +11,8 @@ export interface PageContentInterface {
   page: string
   slug: string
 }
+
+export interface CategoryInterface {
+  id?: string
+  name: string
+}

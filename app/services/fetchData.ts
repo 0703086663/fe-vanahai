@@ -1,3 +1,4 @@
+import { CategoryInterface } from './../interfaces/interface'
 import {
   PageContentInterface,
   PageImageInterface,
@@ -8,7 +9,7 @@ export const fetchPageContent = async (page: string) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_LINK}/page-content`
     )
-    const data = await response.json()
+    const data: PageContentInterface[] = await response.json()
     return data.filter((item: PageContentInterface) => item.page === page)
   } catch (error) {
     console.error('Error fetching data:', error)
@@ -21,8 +22,19 @@ export const fetchPageImage = async (page: string) => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_LINK}/page-image`
     )
-    const data = await response.json()
+    const data: PageImageInterface[] = await response.json()
     return data.filter((item: PageImageInterface) => item.page === page)
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+
+export const fetchCategory = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_LINK}/category`)
+    const data: CategoryInterface[] = await response.json()
+    return data
   } catch (error) {
     console.error('Error fetching data:', error)
     throw error

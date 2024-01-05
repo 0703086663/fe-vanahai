@@ -238,6 +238,7 @@ const Page = () => {
           noValidate
           component="form"
           onSubmit={handleSubmit}
+          encType="multipart/form-data"
           sx={{
             display: 'flex',
             flexDirection: 'column',
