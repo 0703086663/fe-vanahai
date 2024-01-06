@@ -113,7 +113,6 @@ const Page = () => {
                             .toLowerCase()
                             .includes(e.target.value.trim().toLowerCase())
                       )
-                      console.log(search)
                       setPageImages(search)
                     }}
                   />
@@ -168,7 +167,7 @@ const Page = () => {
                             <IconButton
                               onClick={() => {
                                 setOpenDialog(true)
-                                formik.setValues({ id: '', ...pageImage })
+                                formik.setValues(pageImage)
                               }}
                             >
                               <EditIcon />

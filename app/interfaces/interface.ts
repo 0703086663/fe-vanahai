@@ -1,12 +1,12 @@
 export interface PageImageInterface {
-  id?: string
+  id: string
   image: string
   page: string
   slug: string
 }
 
 export interface PageContentInterface {
-  id?: string
+  id: string
   content: string
   page: string
   slug: string

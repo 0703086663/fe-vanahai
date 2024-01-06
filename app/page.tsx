@@ -11,6 +11,7 @@ import {
   PageImageInterface,
 } from './interfaces/interface'
 import covertToHtmlWithAnimation from './utils/covertToHtmlWithAnimation'
+import 'react-quill/dist/quill.core.css'
 
 export default function Home() {
   const [pageContentData, setPageContentData] = useState<
@@ -65,12 +66,12 @@ export default function Home() {
           className="w-full h-[700px] object-cover brightness-50 animate-image"
         />
         <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] ">
-          <div className="animate fadeIn-1">
-            <h1 className="text-white text-center italic text-4xl select-none tracking-wide">
-              {heroBannerContent
-                ? heroBannerContent.content
-                : 'Welcome to Vanahai'}
-            </h1>
+          <div className="animate fadeIn-1 ql-editor select-none tracking-wide text-center">
+            {covertToHtmlWithAnimation(
+              heroBannerContent
+                ? heroBannerContent!.content
+                : 'Welcome to Vanahai'
+            )}
           </div>
           <div className="flex justify-center pt-5 animate fadeIn-2">
             <Link href="/menu" draggable={false}>
@@ -116,17 +117,19 @@ export default function Home() {
                 className="w-[calc(100vw-80px)] 
                   md:w-[680px] 
                   lg:w-[500px]
-                  text-sm tracking-wider mt-4 animate fadeIn-2"
+                  text-sm tracking-wider mt-4 animate fadeIn-2 ql-editor"
               >
-                {bodyRightContent
-                  ? bodyRightContent.content
-                  : 'Vanahai Bubble Tea'}
+                {covertToHtmlWithAnimation(
+                  bodyRightContent
+                    ? bodyRightContent.content
+                    : 'Vanahai Bubble Tea'
+                )}
               </p>
             </div>
           </div>
         </section>
         <section className="pb-10 pt-4">
-          <div className="tracking-wide leading-10 [&>p]:py-4">
+          <div className="tracking-wide leading-10 [&>p]:py-4 ql-editor">
             {covertToHtmlWithAnimation(
               mainContent ? mainContent!.content : 'Loading'
             )}

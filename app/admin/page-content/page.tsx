@@ -1,11 +1,10 @@
 'use client'
-import PlusIcon from '@heroicons/react/24/solid/PlusIcon'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
+  Box,
   Button,
   Container,
   SvgIcon,
-  Box,
   Card,
   Stack,
   Table,
@@ -19,6 +18,8 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  InputBase,
+  Paper,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import Dialog from '@mui/material/Dialog'
@@ -26,30 +27,61 @@ import axios from 'axios'
 import CloseIcon from '@mui/icons-material/Close'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
+import SearchIcon from '@mui/icons-material/Search'
 import { useFormik } from 'formik'
 import _ from 'lodash'
 import covertToHtmlWithAnimation from '@/app/utils/covertToHtmlWithAnimation'
-import { Editor } from 'react-draft-wysiwyg'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import {
-  EditorState,
-  convertToRaw,
-  ContentState,
-  convertFromHTML,
-} from 'draft-js'
-import draftToHtml from 'draftjs-to-html'
-import ColorPic from '@/app/components/color'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+import './styles.css'
+import { PageContentInterface } from '@/app/interfaces/interface'
+import convertToCamelCase from '@/app/utils/convertToCamelCase'
+
+const color = [
+  '#000000',
+  '#333333',
+  '#666666',
+  '#999999',
+  '#CCCCCC',
+  '#FFFFFF',
+  '#FF0000',
+  '#FF6666',
+  '#FFCCCC',
+  '#FF9900',
+  '#FFCC66',
+  '#FFFF99',
+  '#00FF00',
+  '#66FF66',
+  '#CCFFCC',
+  '#00FFFF',
+  '#66CCCC',
+  '#99CCCC',
+  '#0000FF',
+  '#6666FF',
+  '#CCCCFF',
+  '#9900FF',
+  '#CC66FF',
+  '#FF99FF',
+  '#FFD700',
+  '#FFB900',
+  '#FF7F00',
+  '#00FF7F',
+  '#008080',
+  '#800080',
+  '#008000',
+  '#000080',
+  '#800000',
+  '#FF6600',
+  '#993366',
+]
 
 const Page = () => {
-  const [searchData, setSearchData] = useState()
-  const [contents, setContents] = useState()
+  const [value, setValue] = useState('')
+  const [searchData, setSearchData] = useState<PageContentInterface[]>([])
+  const [contents, setContents] = useState<PageContentInterface[]>([])
   const [openDialog, setOpenDialog] = useState(false)
-  const [editorState, setEditorState] = useState(EditorState.createEmpty())
   const [refreshFlag, setRefreshFlag] = useState(false)
 
-  const onEditorStateChange = (newEditorState: any) => {
-    setEditorState(newEditorState)
-  }
   const formik = useFormik({
     initialValues: {
       id: '',
@@ -64,14 +96,13 @@ const Page = () => {
           `${process.env.NEXT_PUBLIC_API_LINK}/page-content/${v?.id}`,
           {
             ...v,
-            content: draftToHtml(convertToRaw(editorState.getCurrentContent())),
+            content: value,
           }
         )
       }
       formik.resetForm()
       setRefreshFlag(!refreshFlag)
       setOpenDialog(false)
-      setEditorState(EditorState.createEmpty())
     },
   })
   const fetchContents = async () => {
@@ -103,19 +134,36 @@ const Page = () => {
             <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
                 <Typography variant="h4">Contents</Typography>
-                {/* <TextField
-                  id="outlined-basic"
-                  label="Search"
-                  fullWidth
-                  sx={{ paddingBottom: 1, padding: 0 }}
-                  variant="outlined"
-                  onChange={(e) => {
-                    const search = searchData.filter((content: any) =>
-                      content.name.includes(e.target.value.trim())
-                    )
-                    setContents(search)
+                <Paper
+                  component="form"
+                  sx={{
+                    p: '2px 4px',
+                    display: 'flex',
+                    alignItems: 'center',
                   }}
-                /> */}
+                >
+                  <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Search page by name"
+                    inputProps={{ 'aria-label': 'search page by name' }}
+                    onChange={(e) => {
+                      const search = searchData.filter(
+                        (page: PageContentInterface) =>
+                          convertToCamelCase(page.page)
+                            .toLowerCase()
+                            .includes(e.target.value.trim().toLowerCase())
+                      )
+                      setContents(search)
+                    }}
+                  />
+                  <IconButton
+                    type="button"
+                    sx={{ p: '10px' }}
+                    aria-label="search"
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </Paper>
               </Stack>
             </Stack>
             <Card>
@@ -123,19 +171,31 @@ const Page = () => {
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>page</TableCell>
-                      <TableCell>slug</TableCell>
-                      <TableCell>content</TableCell>
-                      <TableCell>Action</TableCell>
+                      <TableCell>
+                        <b>Page</b>
+                      </TableCell>
+                      <TableCell>
+                        <b>Position</b>
+                      </TableCell>
+                      <TableCell>
+                        <b>Content</b>
+                      </TableCell>
+                      <TableCell>
+                        <b>Action</b>
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {contents?.map((content: any) => {
+                    {contents?.map((content: PageContentInterface) => {
                       return (
                         <TableRow hover key={content.id}>
-                          <TableCell>{content?.page}</TableCell>
+                          <TableCell>
+                            {convertToCamelCase(content?.page)}
+                          </TableCell>
 
-                          <TableCell>{content?.slug}</TableCell>
+                          <TableCell>
+                            {convertToCamelCase(content?.slug)}
+                          </TableCell>
                           <TableCell>
                             {covertToHtmlWithAnimation(content?.content)}
                           </TableCell>
@@ -143,17 +203,7 @@ const Page = () => {
                             <IconButton
                               onClick={() => {
                                 setOpenDialog(true)
-                                const blocksFromHTML = convertFromHTML(
-                                  content?.content
-                                )
-                                const contentState =
-                                  ContentState.createFromBlockArray(
-                                    blocksFromHTML.contentBlocks,
-                                    blocksFromHTML.entityMap
-                                  )
-                                setEditorState(
-                                  EditorState.createWithContent(contentState)
-                                )
+                                setValue(content?.content)
                                 formik.setValues(content)
                               }}
                             >
@@ -182,7 +232,7 @@ const Page = () => {
         fullWidth
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Modal title
+          Update content
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -207,19 +257,30 @@ const Page = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            m: 'auto',
-            width: 'fit-content',
           }}
         >
-          <DialogContent dividers className="h-[500px] ">
-            <Editor
-              editorState={editorState}
-              wrapperClassName="demo-wrapper"
-              editorClassName="demo-editor"
-              toolbarClassName="demo-toolbar-custom"
-              onEditorStateChange={onEditorStateChange}
-              toolbar={{
-                colorPicker: { component: ColorPic },
+          <DialogContent dividers>
+            <ReactQuill
+              theme="snow"
+              value={value}
+              onChange={setValue}
+              modules={{
+                toolbar: {
+                  container: [
+                    [
+                      {
+                        size: [],
+                      },
+                    ],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [
+                      'blockquote',
+                      {
+                        color,
+                      },
+                    ],
+                  ],
+                },
               }}
             />
           </DialogContent>

@@ -325,6 +325,30 @@ input[type='button'] {
 .fadeIn-15 {
   animation-delay: 5.15s;
 }
+.fadeIn-16 {
+  animation-delay: 5.5s;
+}
+.fadeIn-17 {
+  animation-delay: 5.85s;
+}
+.fadeIn-18 {
+  animation-delay: 6.2s;
+}
+.fadeIn-19 {
+  animation-delay: 6.55s;
+}
+.fadeIn-20 {
+  animation-delay: 6.9s;
+}
+.fadeIn-21 {
+  animation-delay: 7.25s;
+}
+.fadeIn-22 {
+  animation-delay: 7.6s;
+}
+.fadeIn-23 {
+  animation-delay: 7.95s;
+}
 
 .animate-image {
   -webkit-animation-name: fadeInImage;

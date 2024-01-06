@@ -9,7 +9,7 @@ const covertToHtmlWithAnimation = (content: string | undefined) => {
 
   const parserOptions = {
     replace: (domNode: any) => {
-      if (domNode.type === 'tag' && domNode.name === 'p') {
+      if (domNode.type === 'tag' && !domNode.parent) {
         const dynamicDelayClass = `animate fadeIn-${delayCounter}`
         delayCounter += 1
 
@@ -24,4 +24,5 @@ const covertToHtmlWithAnimation = (content: string | undefined) => {
 
   return parse(content, parserOptions)
 }
+
 export default covertToHtmlWithAnimation
