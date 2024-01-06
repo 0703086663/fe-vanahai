@@ -21,13 +21,16 @@ export const fetchPageContent = async (page: string) => {
   }
 }
 
-export const fetchPageImage = async (page: string) => {
+export const fetchPageImage = async (page?: string) => {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_LINK}/page-image`
     )
     const data: PageImageInterface[] = await response.json()
-    return data.filter((item: PageImageInterface) => item.page === page)
+    if (page) {
+      data.filter((item: PageImageInterface) => item.page === page)
+    }
+    return data
   } catch (error) {
     console.error('Error fetching data:', error)
     throw error
