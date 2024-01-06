@@ -25,6 +25,7 @@ import {
   FormControlLabel,
   Switch,
   Autocomplete,
+  Chip,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import Dialog from '@mui/material/Dialog'
@@ -37,20 +38,21 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useFormik } from 'formik'
 import _ from 'lodash'
+import { CategoryInterface, ProductInterface } from '@/app/interfaces/interface'
 
 const Page = () => {
-  const [searchData, setSearchData] = useState()
-  const [products, setProducts] = useState()
-  const [category, setCategory] = useState<any>()
+  const [searchData, setSearchData] = useState<ProductInterface[]>([])
+  const [products, setProducts] = useState<ProductInterface[]>([])
+  const [category, setCategory] = useState<CategoryInterface[]>([])
   const [openDialog, setOpenDialog] = useState(false)
   const [preview, setPreview] = useState('')
   const [refreshFlag, setRefreshFlag] = useState(false)
   const formik = useFormik({
     initialValues: {
       id: '',
-      discountPrice: '',
+      discountPrice: 0,
       name: '',
-      price: '',
+      price: 0,
       image: {},
       isDiscount: false,
       isBestSeller: false,
@@ -91,7 +93,7 @@ const Page = () => {
       setOpenDialog(false)
     },
     validate: (v) => {
-      console.log('')
+      console.log(v.isBestSeller, v.isDiscount)
     },
   })
   const fetchProducts = async () => {
@@ -143,6 +145,8 @@ const Page = () => {
                 <TextField
                   id="outlined-basic"
                   label="Search"
+                  name="search"
+                  // autoComplete="off"
                   fullWidth
                   sx={{ paddingBottom: 1, padding: 0 }}
                   variant="outlined"
@@ -185,7 +189,7 @@ const Page = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {products?.map((product: any) => {
+                    {products?.map((product: ProductInterface) => {
                       return (
                         <TableRow hover key={product.id}>
                           <TableCell>
@@ -204,13 +208,28 @@ const Page = () => {
                           </TableCell>
                           <TableCell>{product?.price}</TableCell>
                           <TableCell>
-                            {product?.isBestSeller.toString()}
+                            {product?.isBestSeller.toString() === 'true' ? (
+                              <Chip label="Yes" color="success" />
+                            ) : (
+                              <Chip label="No" color="error" />
+                            )}
                           </TableCell>
                           <TableCell>
-                            {product?.isDiscount.toString()}
+                            {product?.isDiscount.toString() === 'true' ? (
+                              <Chip label="Yes" color="success" />
+                            ) : (
+                              <Chip label="No" color="error" />
+                            )}
                           </TableCell>
                           <TableCell>{product?.discountPrice}</TableCell>
-                          <TableCell>{product?.categoryId}</TableCell>
+                          <TableCell>
+                            {category
+                              ? category.find(
+                                  (cate: CategoryInterface) =>
+                                    product.categoryId === cate.id
+                                )?.name
+                              : ''}
+                          </TableCell>
                           <TableCell>
                             <IconButton
                               onClick={() => {
@@ -247,7 +266,7 @@ const Page = () => {
         open={openDialog}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Modal title
+          Create Product
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -310,17 +329,6 @@ const Page = () => {
               />
               <TextField
                 id="outlined-basic"
-                label="discountPrice"
-                fullWidth
-                sx={{ paddingBottom: 1 }}
-                variant="outlined"
-                value={formik.values.discountPrice}
-                onChange={formik.handleChange}
-                name="discountPrice"
-                type="number"
-              />
-              <TextField
-                id="outlined-basic"
                 label="Price"
                 fullWidth
                 type="number"
@@ -330,19 +338,39 @@ const Page = () => {
                 name="price"
                 onChange={formik.handleChange}
               />
-              <FormControlLabel
-                control={<Switch defaultChecked={formik.values.isDiscount} />}
-                label="Discount"
-                value={formik.values.isDiscount}
+              <TextField
+                id="outlined-basic"
+                label="Discount Price"
+                fullWidth
+                sx={{ paddingBottom: 1 }}
+                variant="outlined"
+                value={formik.values.discountPrice}
                 onChange={formik.handleChange}
+                name="discountPrice"
+                type="number"
+              />
+
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={formik.values.isDiscount}
+                    onChange={formik.handleChange}
+                  />
+                }
+                label="Discount"
+                // value={formik.values.isDiscount}
                 name="isDiscount"
               />
               <FormControlLabel
-                control={<Switch defaultChecked={formik.values.isBestSeller} />}
+                control={
+                  <Switch
+                    checked={formik.values.isBestSeller}
+                    onChange={formik.handleChange}
+                  />
+                }
                 label="Best Seller"
-                value={formik.values.isBestSeller}
+                // value={formik.values.isBestSeller}
                 name="isBestSeller"
-                onChange={formik.handleChange}
               />
             </div>
             <div className="w-1/2 flex flex-col items-center ">
