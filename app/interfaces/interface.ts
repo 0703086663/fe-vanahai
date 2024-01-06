@@ -1,3 +1,14 @@
+export interface Product {
+  id: string
+  price?: number
+  name?: string
+  image?: string
+  isBestSeller?: boolean
+  isDiscount?: boolean
+  discountPrice?: number
+  categoryId?: string
+}
+
 export interface PageImageInterface {
   id: string
   image: string
@@ -18,7 +29,8 @@ export interface CategoryInterface {
 }
 
 export interface ProductInterface {
-  id?: string
+  id: string
+  name: string
   price: number
   image: string
   isBestSeller: boolean
