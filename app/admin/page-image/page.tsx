@@ -64,14 +64,14 @@ const Page = () => {
     },
   })
   const [refreshFlag, setRefreshFlag] = useState(false)
-  const [categories, setCategories] = useState<PageImageInterface[]>([])
+  const [pageImages, setPageImages] = useState<PageImageInterface[]>([])
   const [openDialog, setOpenDialog] = useState(false)
   const [searchData, setSearchData] = useState<PageImageInterface[]>([])
   const [preview, setPreview] = useState('')
 
   const fetchDataAndSetState = async () => {
     const res: PageImageInterface[] = await fetchPageImage()
-    setCategories(res)
+    setPageImages(res)
     setSearchData(res)
   }
 
@@ -114,7 +114,7 @@ const Page = () => {
                             .includes(e.target.value.trim().toLowerCase())
                       )
                       console.log(search)
-                      setCategories(search)
+                      setPageImages(search)
                     }}
                   />
                   <IconButton
@@ -128,11 +128,7 @@ const Page = () => {
               </Stack>
             </Stack>
             <Card>
-              <Box
-                sx={{
-                  overflowX: 'auto',
-                }}
-              >
+              <Box className="overflow-x-auto">
                 <Table>
                   <TableHead>
                     <TableRow>
@@ -151,28 +147,28 @@ const Page = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {categories?.map((category: PageImageInterface) => {
+                    {pageImages?.map((pageImage: PageImageInterface) => {
                       return (
-                        <TableRow hover key={category.id}>
+                        <TableRow hover key={pageImage.id}>
                           <TableCell>
                             <Image
-                              src={category.image}
+                              src={pageImage.image}
                               height={100}
                               width={100}
                               alt=""
                             />
                           </TableCell>
                           <TableCell>
-                            {convertToCamelCase(category.page)}
+                            {convertToCamelCase(pageImage.page)}
                           </TableCell>
                           <TableCell>
-                            {convertToCamelCase(category.slug)}
+                            {convertToCamelCase(pageImage.slug)}
                           </TableCell>
                           <TableCell>
                             <IconButton
                               onClick={() => {
                                 setOpenDialog(true)
-                                formik.setValues({ id: '', ...category })
+                                formik.setValues({ id: '', ...pageImage })
                               }}
                             >
                               <EditIcon />

@@ -1,7 +1,7 @@
 'use client'
 
-import { CategoryInterface } from '@/app/interfaces/interface'
-import { fetchCategory } from '@/app/services/fetchData'
+import { ContactInterface } from '@/app/interfaces/interface'
+import { fetchContact } from '@/app/services/fetchData'
 import PlusIcon from '@heroicons/react/24/solid/PlusIcon'
 import {
   Box,
@@ -26,8 +26,6 @@ import {
   InputBase,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
 import SearchIcon from '@mui/icons-material/Search'
 import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
@@ -43,13 +41,13 @@ const Page = () => {
       let res
       if (values.id) {
         res = await axios.patch(
-          `${process.env.NEXT_PUBLIC_API_LINK}/category/${values.id}`,
+          `${process.env.NEXT_PUBLIC_API_LINK}/contact/${values.id}`,
           {
             ...values,
           }
         )
       } else {
-        res = await axios.post(`${process.env.NEXT_PUBLIC_API_LINK}/category`, {
+        res = await axios.post(`${process.env.NEXT_PUBLIC_API_LINK}/contact`, {
           ...values,
         })
       }
@@ -60,23 +58,13 @@ const Page = () => {
     },
   })
   const [refreshFlag, setRefreshFlag] = useState(false)
-  const [categories, setCategories] = useState<CategoryInterface[]>([])
+  const [contacts, setContacts] = useState<ContactInterface[]>([])
   const [openDialog, setOpenDialog] = useState(false)
-  const [searchData, setSearchData] = useState<CategoryInterface[]>([])
-
-  const handleDelete = async (categoryId?: string) => {
-    const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_LINK}/category/${categoryId}`
-    )
-    if (res) {
-      setRefreshFlag(!refreshFlag)
-      setOpenDialog(false)
-    }
-  }
+  const [searchData, setSearchData] = useState<ContactInterface[]>([])
 
   const fetchDataAndSetState = async () => {
-    const res: CategoryInterface[] = await fetchCategory()
-    setCategories(res)
+    const res: ContactInterface[] = await fetchContact()
+    setContacts(res)
     setSearchData(res)
   }
 
@@ -98,7 +86,7 @@ const Page = () => {
           <Stack spacing={3}>
             <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
-                <Typography variant="h4">Category Table</Typography>
+                <Typography variant="h4">Contact Table</Typography>
                 <Paper
                   component="form"
                   sx={{
@@ -109,16 +97,16 @@ const Page = () => {
                 >
                   <InputBase
                     sx={{ ml: 1, flex: 1 }}
-                    placeholder="Search category by name"
-                    inputProps={{ 'aria-label': 'search category by name' }}
+                    placeholder="Search message by subject"
+                    inputProps={{ 'aria-label': 'search message by subject' }}
                     onChange={(e) => {
                       const search = searchData.filter(
-                        (category: CategoryInterface) =>
-                          category.name
+                        (contact: ContactInterface) =>
+                          contact.subject
                             .toLowerCase()
                             .includes(e.target.value.trim().toLowerCase())
                       )
-                      setCategories(search)
+                      setContacts(search)
                     }}
                   />
                   <IconButton
@@ -130,20 +118,6 @@ const Page = () => {
                   </IconButton>
                 </Paper>
               </Stack>
-              <div>
-                <Button
-                  startIcon={
-                    <SvgIcon fontSize="small">
-                      <PlusIcon />
-                    </SvgIcon>
-                  }
-                  onClick={() => setOpenDialog(true)}
-                  color="primary"
-                  variant="outlined"
-                >
-                  Add
-                </Button>
-              </div>
             </Stack>
             <Card>
               <Box className="overflow-x-auto">
@@ -151,33 +125,45 @@ const Page = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>
+                        <b>Subject</b>
+                      </TableCell>
+                      <TableCell>
+                        <b>Email</b>
+                      </TableCell>
+                      <TableCell>
                         <b>Name</b>
                       </TableCell>
-                      <TableCell className="w-[120px]">
-                        <b>Action</b>
+                      <TableCell>
+                        <b>Message</b>
+                      </TableCell>
+                      <TableCell>
+                        <b>Created at</b>
                       </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {categories?.map((category: CategoryInterface) => {
+                    {contacts?.map((contact: ContactInterface) => {
                       return (
-                        <TableRow hover key={category.id}>
-                          <TableCell>{category.name}</TableCell>
+                        <TableRow hover key={contact.id}>
                           <TableCell>
-                            <IconButton
-                              onClick={() => {
-                                setOpenDialog(true)
-                                formik.setValues({ id: '', ...category })
-                              }}
+                            <span
+                              className={`capitalize font-semibold ${
+                                contact.subject == 'compliment'
+                                  ? 'text-[#28a745]'
+                                  : contact.subject == 'complaint'
+                                  ? 'text-[#dc3545]'
+                                  : contact.subject == 'asking'
+                                  ? 'text-[#007bff]'
+                                  : 'text-black'
+                              }`}
                             >
-                              <EditIcon />
-                            </IconButton>
-                            <IconButton
-                              onClick={() => handleDelete(category.id)}
-                            >
-                              <DeleteIcon />
-                            </IconButton>
+                              {contact.subject}
+                            </span>
                           </TableCell>
+                          <TableCell>{contact.email}</TableCell>
+                          <TableCell>{contact.name}</TableCell>
+                          <TableCell>{contact.message}</TableCell>
+                          <TableCell>Null</TableCell>
                         </TableRow>
                       )
                     })}
