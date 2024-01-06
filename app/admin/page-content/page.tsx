@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   Box,
   Button,
@@ -31,11 +31,11 @@ import SearchIcon from '@mui/icons-material/Search'
 import { useFormik } from 'formik'
 import _ from 'lodash'
 import covertToHtmlWithAnimation from '@/app/utils/covertToHtmlWithAnimation'
-import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './styles.css'
 import { PageContentInterface } from '@/app/interfaces/interface'
 import convertToCamelCase from '@/app/utils/convertToCamelCase'
+import dynamic from 'next/dynamic'
 
 const color = [
   '#000000',
@@ -77,6 +77,10 @@ const color = [
 
 const Page = () => {
   const [value, setValue] = useState('')
+  const ReactQuill = useMemo(
+    () => dynamic(() => import('react-quill'), { ssr: false }),
+    []
+  )
   const [searchData, setSearchData] = useState<PageContentInterface[]>([])
   const [contents, setContents] = useState<PageContentInterface[]>([])
   const [openDialog, setOpenDialog] = useState(false)
