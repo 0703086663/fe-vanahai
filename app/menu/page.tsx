@@ -64,6 +64,7 @@ const Page = () => {
             {category.map((cate: CategoryInterface) => {
               return (
                 <div
+                  key={cate.id}
                   role="button"
                   onClick={() => handleFilterProductByCate(cate.id)}
                   className={`hover:text-[#2596BE] ${
@@ -93,7 +94,10 @@ const Page = () => {
                     {products.map((product: Product) => {
                       if (cate.id !== product.categoryId) return
                       return (
-                        <div className="relative animate fadeIn-1">
+                        <div
+                          className="relative animate fadeIn-1"
+                          key={product.id}
+                        >
                           <div className="w-[270px] h-[270px] flex items-center relative bg-stone-50 rounded-3xl shadow overflow-hidden">
                             <img
                               className=" object-contain"
