@@ -30,6 +30,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
+import convertDateToText from '@/app/utils/convertDateToText'
 
 const Page = () => {
   const formik = useFormik({
@@ -152,7 +153,7 @@ const Page = () => {
                                   ? 'text-[#28a745]'
                                   : contact.subject == 'complaint'
                                   ? 'text-[#dc3545]'
-                                  : contact.subject == 'asking'
+                                  : contact.subject == 'question'
                                   ? 'text-[#007bff]'
                                   : 'text-black'
                               }`}
@@ -163,7 +164,9 @@ const Page = () => {
                           <TableCell>{contact.email}</TableCell>
                           <TableCell>{contact.name}</TableCell>
                           <TableCell>{contact.message}</TableCell>
-                          <TableCell>Null</TableCell>
+                          <TableCell>
+                            {convertDateToText(contact.createdAt)}
+                          </TableCell>
                         </TableRow>
                       )
                     })}

@@ -33,4 +33,5 @@ export interface ContactInterface {
   email: string
   subject: string
   message: string
+  createdAt: string
 }
