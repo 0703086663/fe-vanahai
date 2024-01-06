@@ -22,10 +22,13 @@ import {
   IconButton,
   DialogContent,
   DialogActions,
+  Paper,
+  InputBase,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import SearchIcon from '@mui/icons-material/Search'
 import React, { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import axios from 'axios'
@@ -59,6 +62,7 @@ const Page = () => {
   const [refreshFlag, setRefreshFlag] = useState(false)
   const [categories, setCategories] = useState<CategoryInterface[]>([])
   const [openDialog, setOpenDialog] = useState(false)
+  const [searchData, setSearchData] = useState<CategoryInterface[]>([])
 
   const handleDelete = async (categoryId?: string) => {
     const res = await axios.delete(
@@ -73,6 +77,7 @@ const Page = () => {
   const fetchDataAndSetState = async () => {
     const res: CategoryInterface[] = await fetchCategory()
     setCategories(res)
+    setSearchData(res)
   }
 
   useEffect(() => {
@@ -94,6 +99,34 @@ const Page = () => {
             <Stack direction="row" justifyContent="space-between" spacing={4}>
               <Stack spacing={1}>
                 <Typography variant="h4">Category Table</Typography>
+                <Paper
+                  component="form"
+                  sx={{
+                    p: '2px 4px',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <InputBase
+                    sx={{ ml: 1, flex: 1 }}
+                    placeholder="Search category by name"
+                    inputProps={{ 'aria-label': 'search category by name' }}
+                    onChange={(e) => {
+                      const search = searchData.filter(
+                        (category: CategoryInterface) =>
+                          category.name.includes(e.target.value.trim())
+                      )
+                      setCategories(search)
+                    }}
+                  />
+                  <IconButton
+                    type="button"
+                    sx={{ p: '10px' }}
+                    aria-label="search"
+                  >
+                    <SearchIcon />
+                  </IconButton>
+                </Paper>
               </Stack>
               <div>
                 <Button
@@ -111,12 +144,16 @@ const Page = () => {
               </div>
             </Stack>
             <Card>
-              <Box sx={{ minWidth: 800 }}>
+              <Box>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell>Action</TableCell>
+                      <TableCell>
+                        <b>Name</b>
+                      </TableCell>
+                      <TableCell className="w-[120px]">
+                        <b>Action</b>
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -177,7 +214,6 @@ const Page = () => {
           <CloseIcon />
         </IconButton>
         <Box
-          noValidate
           component="form"
           onSubmit={formik.handleSubmit}
           sx={{

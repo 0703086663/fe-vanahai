@@ -109,7 +109,7 @@ export default function Home() {
                 alt=""
                 className="h-[550px] w-[calc(100vw-80px)] 
                   md:h-[400px] md:w-[680px] 
-                  lg:h-[300px] lg:w-[500px]
+                  lg:h-[350px] lg:w-[500px]
                   xl:w-[680px] object-cover shadow-xl rounded-md animate fadeIn-1"
               />
               <p
