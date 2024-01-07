@@ -26,6 +26,7 @@ export interface PageContentInterface {
 export interface CategoryInterface {
   id?: string
   name: string
+  estName?: string
 }
 
 export interface ProductInterface {
