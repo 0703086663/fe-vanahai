@@ -3,11 +3,7 @@ import { usePathname } from 'next/navigation'
 import { styled } from '@mui/material/styles'
 import { useCallback, useEffect, useState } from 'react'
 import { SideNav } from '../components/Layout/SideNav'
-import Footer from '../components/Footer/Footer'
-import MuiAppBar, {
-  AppBarProps,
-  AppBarProps as MuiAppBarProps,
-} from '@mui/material/AppBar'
+import MuiAppBar, { AppBarProps } from '@mui/material/AppBar'
 import { IconButton, Toolbar } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
@@ -83,7 +79,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
+})<{ open: boolean }>(({ theme, open }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,

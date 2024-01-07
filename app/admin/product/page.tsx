@@ -387,7 +387,10 @@ const Page = () => {
                 Upload file
                 <VisuallyHiddenInput type="file" name="image" />
               </Button>
-              <img
+
+              <Image
+                width={500}
+                height={500}
                 src={
                   preview ||
                   (!_.isEmpty(formik.getFieldMeta('image').value) &&

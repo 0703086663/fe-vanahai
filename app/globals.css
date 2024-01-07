@@ -367,6 +367,25 @@ input[type='button'] {
   }
 }
 
+.animate-product {
+  -webkit-animation-name: fadeInProduct;
+  animation-name: fadeInProduct;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  will-change: opacity, transform;
+  animation-duration: 1s;
+}
+@keyframes fadeInProduct {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
 .header {
   transition: 0.5s;
 }

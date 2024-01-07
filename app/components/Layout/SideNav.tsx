@@ -19,10 +19,13 @@ const Logo = () => {
     />
   )
 }
-
+interface SideNavProps {
+  open: boolean
+  setOpenNav: React.Dispatch<React.SetStateAction<boolean>>
+}
 const Scrollbar = styled(SimpleBar)``
-export const SideNav = (props: any) => {
-  const { open, setOpenNav } = props
+export const SideNav: React.FC<SideNavProps> = ({ open, setOpenNav }) => {
+  // const { open, setOpenNav } = props
   const pathname = usePathname()
   const content = (
     <Scrollbar
@@ -135,7 +138,7 @@ export const SideNav = (props: any) => {
   )
 }
 
-SideNav.propTypes = {
-  onClose: PropTypes.func,
-  open: PropTypes.bool,
-}
+// SideNav.propTypes = {
+//   onClose: PropTypes.func,
+//   open: PropTypes.bool,
+// }
