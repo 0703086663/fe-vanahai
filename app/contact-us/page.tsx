@@ -33,7 +33,7 @@ const Page = () => {
       <div className="container mx-auto px-4 pb-10 pt-[140px] h-full">
         <section className="flex h-full">
           <div className="location-left w-1/2 flex flex-col items-center">
-            <div className="h-[300px] max-w-[75%]">
+            <div className="h-[300px] max-w-[80%] mr-[5%]">
               <Swiper
                 effect={'cards'}
                 grabCursor={true}
@@ -103,7 +103,7 @@ const Page = () => {
                   </p>
                   <h3 className="font-semibold">Time Opening</h3>
                   <p className="py-3">12:00 - 20:00</p>
-                  <div className="location-meta py-3 flex gap-2">
+                  <div className="location-meta py-3 flex flex-col md:flex-row gap-2">
                     <span className="parking flex">
                       <DirectionsCarFilledOutlined />
                       <span className="px-1">Parking available</span>

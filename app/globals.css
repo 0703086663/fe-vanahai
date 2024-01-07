@@ -374,3 +374,7 @@ input[type='button'] {
 body::-webkit-scrollbar {
   width: 0;
 }
+
+.ql-editor {
+  line-height: 2.5rem !important;
+}

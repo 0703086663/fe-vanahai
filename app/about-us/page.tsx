@@ -6,6 +6,7 @@ import Footer from '../components/Footer/Footer'
 import { PageContentInterface } from '../interfaces/interface'
 import { fetchPageContent } from '../services/fetchData'
 import covertToHtmlWithAnimation from '../utils/covertToHtmlWithAnimation'
+import 'react-quill/dist/quill.core.css'
 
 const Page = () => {
   const [pageContentData, setPageContentData] = useState<
@@ -31,7 +32,7 @@ const Page = () => {
   return (
     <>
       <Header hasBackground={false} />
-      <section className="container mx-auto px-10 pt-[140px] flex flex-col items-center ql-editor">
+      <section className="container mx-auto px-10 pt-[140px] flex flex-col items-center">
         <div className="relative flex justify-center">
           <h1 className="text-3xl pb-[40px] animate fadeIn-1">ABOUT US</h1>
           <div className="absolute bg-[#2596BE] h-[2.5px] w-8 top-1/2 animate fadeIn-2"></div>

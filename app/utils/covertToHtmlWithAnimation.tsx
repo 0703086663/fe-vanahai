@@ -22,7 +22,11 @@ const covertToHtmlWithAnimation = (content: string | undefined) => {
     },
   }
 
-  return parse(content, parserOptions)
+  return (
+    <div className="ql-editor tracking-wider">
+      {parse(content, parserOptions)}
+    </div>
+  )
 }
 
 export default covertToHtmlWithAnimation

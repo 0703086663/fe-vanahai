@@ -36,6 +36,7 @@ import './styles.css'
 import { PageContentInterface } from '@/app/interfaces/interface'
 import convertToCamelCase from '@/app/utils/convertToCamelCase'
 import dynamic from 'next/dynamic'
+import 'react-quill/dist/quill.core.css'
 
 const color = [
   '#000000',
