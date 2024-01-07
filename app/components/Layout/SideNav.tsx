@@ -1,29 +1,14 @@
 import NextLink from 'next/link'
 import { usePathname } from 'next/navigation'
 import PropTypes from 'prop-types'
-import ArrowTopRightOnSquareIcon from '@heroicons/react/24/solid/ArrowTopRightOnSquareIcon'
-import ChevronUpDownIcon from '@heroicons/react/24/solid/ChevronUpDownIcon'
-import {
-  Box,
-  Button,
-  Divider,
-  Drawer,
-  Stack,
-  SvgIcon,
-  Typography,
-  styled,
-  useMediaQuery,
-} from '@mui/material'
+import { Box, Divider, Drawer, IconButton, Stack, styled } from '@mui/material'
 import { items } from './items'
 import { SideNavItem } from './SideNavItems'
 import SimpleBar from 'simplebar-react'
 import Image from 'next/image'
-import { useTheme } from '@mui/material/styles'
-
+import * as React from 'react'
+import MenuIcon from '@mui/icons-material/Menu'
 const Logo = () => {
-  const theme = useTheme()
-  const fillColor = theme.palette.primary.main
-
   return (
     <Image
       src={'/logo-white.png'}
@@ -37,6 +22,7 @@ const Logo = () => {
 
 const Scrollbar = styled(SimpleBar)``
 export const SideNav = (props: any) => {
+  const { open, setOpenNav } = props
   const pathname = usePathname()
   const content = (
     <Scrollbar
@@ -59,7 +45,15 @@ export const SideNav = (props: any) => {
           height: '100%',
         }}
       >
-        <Box sx={{ p: 3 }}>
+        <Box
+          sx={{
+            p: 3,
+            display: 'flex',
+            height: '100%',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <Box
             component={NextLink}
             href="/"
@@ -71,6 +65,9 @@ export const SideNav = (props: any) => {
           >
             <Logo />
           </Box>
+          <IconButton onClick={() => setOpenNav(!open)}>
+            <MenuIcon color="primary" />
+          </IconButton>
         </Box>
         <Divider sx={{ borderColor: 'neutral.700' }} />
         <Box
@@ -113,8 +110,17 @@ export const SideNav = (props: any) => {
 
   return (
     <Drawer
+      sx={{
+        width: '280px',
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: '280px',
+          boxSizing: 'border-box',
+        },
+      }}
+      variant="persistent"
       anchor="left"
-      open={true}
+      open={open}
       PaperProps={{
         sx: {
           backgroundColor: '#111927',
@@ -122,9 +128,9 @@ export const SideNav = (props: any) => {
           width: 280,
         },
       }}
-      variant="permanent"
     >
       {content}
+      {/* <DrawerHeader>{content}</DrawerHeader> */}
     </Drawer>
   )
 }

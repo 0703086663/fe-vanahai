@@ -82,7 +82,6 @@ const Page = () => {
   return (
     <>
       <Box
-        className="px-4, m-10"
         component="main"
         sx={{
           flexGrow: 1,

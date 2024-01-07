@@ -130,7 +130,6 @@ const Page = () => {
   return (
     <>
       <Box
-        className="px-4, m-10"
         component="main"
         sx={{
           flexGrow: 1,
@@ -174,7 +173,7 @@ const Page = () => {
               </div>
             </Stack>
             <Card>
-              <Box sx={{ minWidth: 800 }}>
+              <Box className="overflow-x-auto">
                 <Table>
                   <TableHead>
                     <TableRow>

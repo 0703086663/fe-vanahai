@@ -10,15 +10,6 @@ import { SvgIcon } from '@mui/material'
 
 export const items = [
   {
-    title: 'Overview',
-    path: '/',
-    icon: (
-      <SvgIcon fontSize="small">
-        <ChartBarIcon />
-      </SvgIcon>
-    ),
-  },
-  {
     title: 'Categories',
     path: '/admin/category',
     icon: (
@@ -60,24 +51,6 @@ export const items = [
     icon: (
       <SvgIcon fontSize="small">
         <LockClosedIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: 'Register',
-    path: '/auth/register',
-    icon: (
-      <SvgIcon fontSize="small">
-        <UserPlusIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: 'Error',
-    path: '/404',
-    icon: (
-      <SvgIcon fontSize="small">
-        <XCircleIcon />
       </SvgIcon>
     ),
   },

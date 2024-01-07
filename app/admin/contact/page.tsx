@@ -33,31 +33,6 @@ import axios from 'axios'
 import convertDateToText from '@/app/utils/convertDateToText'
 
 const Page = () => {
-  const formik = useFormik({
-    initialValues: {
-      id: '',
-      name: '',
-    },
-    onSubmit: async (values) => {
-      let res
-      if (values.id) {
-        res = await axios.patch(
-          `${process.env.NEXT_PUBLIC_API_LINK}/contact/${values.id}`,
-          {
-            ...values,
-          }
-        )
-      } else {
-        res = await axios.post(`${process.env.NEXT_PUBLIC_API_LINK}/contact`, {
-          ...values,
-        })
-      }
-      if (res) {
-        setRefreshFlag(!refreshFlag)
-        setOpenDialog(false)
-      }
-    },
-  })
   const [refreshFlag, setRefreshFlag] = useState(false)
   const [contacts, setContacts] = useState<ContactInterface[]>([])
   const [openDialog, setOpenDialog] = useState(false)
@@ -76,7 +51,6 @@ const Page = () => {
   return (
     <>
       <Box
-        className="px-4, m-10"
         component="main"
         sx={{
           flexGrow: 1,
@@ -177,63 +151,6 @@ const Page = () => {
           </Stack>
         </Container>
       </Box>
-
-      <Dialog
-        onClose={() => {
-          formik.resetForm()
-          setOpenDialog(false)
-        }}
-        aria-labelledby="customized-dialog-title"
-        open={openDialog}
-      >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Category
-        </DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={() => {
-            setOpenDialog(false)
-            formik.resetForm()
-          }}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <Box
-          component="form"
-          onSubmit={formik.handleSubmit}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            m: 'auto',
-            width: 'fit-content',
-          }}
-        >
-          <DialogContent dividers>
-            <TextField
-              id="outlined-basic"
-              label="Name"
-              variant="outlined"
-              sx={{ paddingBottom: 1 }}
-              fullWidth
-              required
-              name="name"
-              onChange={formik.handleChange}
-              value={formik.values.name}
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button type="submit" autoFocus>
-              Save
-            </Button>
-          </DialogActions>
-        </Box>
-      </Dialog>
     </>
   )
 }
