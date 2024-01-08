@@ -394,10 +394,11 @@ body::-webkit-scrollbar {
   width: 0;
 }
 
-body * {
+/* body * {
   transition: all 0.5s;
-}
+} */
 
 .ql-editor {
   line-height: 2.5rem !important;
+  padding: 0 !important;
 }

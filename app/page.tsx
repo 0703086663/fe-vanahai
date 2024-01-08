@@ -11,6 +11,7 @@ import {
   PageImageInterface,
 } from './interfaces/interface'
 import covertToHtmlWithAnimation from './utils/covertToHtmlWithAnimation'
+import Skeleton from '@mui/material/Skeleton'
 import 'react-quill/dist/quill.core.css'
 
 export default function Home() {
@@ -70,7 +71,7 @@ export default function Home() {
             {covertToHtmlWithAnimation(
               heroBannerContent
                 ? heroBannerContent!.content
-                : '<span className"text-white animate fadeIn-1">Welcome to Vanahai</span>'
+                : '<span style="color:white; font-size: 24px" className"animate fadeIn-1">Welcome to Vanahai</span>'
             )}
           </div>
           <div className="flex justify-center pt-5 animate fadeIn-2">
@@ -118,10 +119,10 @@ export default function Home() {
                   lg:w-[500px]
                   mt-4"
               >
-                {covertToHtmlWithAnimation(
-                  bodyRightContent
-                    ? bodyRightContent.content
-                    : 'Vanahai Bubble Tea'
+                {bodyRightContent ? (
+                  covertToHtmlWithAnimation(bodyRightContent.content)
+                ) : (
+                  <Skeleton animation="wave" width={'90%'} />
                 )}
               </div>
             </div>
@@ -129,8 +130,20 @@ export default function Home() {
         </section>
         <section className="pb-10 pt-4">
           <div className="[&>p]:py-4">
-            {covertToHtmlWithAnimation(
-              mainContent ? mainContent!.content : 'Loading'
+            {mainContent ? (
+              covertToHtmlWithAnimation(mainContent!.content)
+            ) : (
+              <>
+                <Skeleton animation="wave" height={40} width={'50%'} />
+                <Skeleton animation="wave" width={'90%'} />
+                <Skeleton animation="wave" height={20} />
+                <Skeleton animation="wave" width={'60%'} />
+                <br />
+                <Skeleton animation="wave" height={40} width={'50%'} />
+                <Skeleton animation="wave" width={'90%'} />
+                <Skeleton animation="wave" height={20} />
+                <Skeleton animation="wave" width={'60%'} />
+              </>
             )}
           </div>
         </section>
