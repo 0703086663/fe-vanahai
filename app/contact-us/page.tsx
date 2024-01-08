@@ -20,14 +20,11 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-import useScrollTracker from '../hooks/useScrollTracker'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import './styles.css'
 
 const Page = () => {
-  const isScroll = useScrollTracker(200)
-
   return (
     <>
       <Header hasBackground={false} />
@@ -123,7 +120,7 @@ const Page = () => {
             </div>
           </div>
           <div className="md:w-1/2 md:order-1 flex flex-col gap-4 items-center">
-            <div className="h-full w-full relative">
+            <div className="h-full w-full relative animate fadeIn-1">
               <Swiper
                 spaceBetween={10}
                 centeredSlides={true}
@@ -176,10 +173,10 @@ const Page = () => {
           </div>
         </section>
         <Divider className="my-10" />
-        <section className={` ${isScroll && 'animate fadeIn-1'}`}>
+        <section className={`animate fadeIn-12`}>
           <ContactForm />
         </section>
-        <section className="h-[300px] w-full mt-10">
+        <section className="h-[300px] w-full mt-10 animate fadeIn-13">
           <Map />
         </section>
       </div>
