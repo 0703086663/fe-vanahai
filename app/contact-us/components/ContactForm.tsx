@@ -4,7 +4,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 const ContactForm = () => {
   return (
     <div className="flex items-center flex-col">
-      <h1 className="text-3xl md:text-5xl text-center">
+      <h1 className="text-[28px] md:text-5xl text-center">
         We’re happy to hear from you
       </h1>
       <form className="flex flex-col items-center md:w-[600px]">
