@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#333] h-auto sm:h-[100px]">
       <ul className="h-full container mx-auto px-4 flex justify-between max-[640px]:flex-col items-center">
-        <li>
+        <li className="max-[640px]:mt-2">
           <Link href="/" draggable={false}>
             <Image
               src="/logo-white.png"
@@ -16,7 +16,7 @@ const Footer = () => {
               height={90}
               alt="logo"
               priority
-              className="hover:brightness-[.85] select-none"
+              className="max-h-[80px] max-w-[80px] md:max-h-full md:max-w-full hover:brightness-[.85] select-none"
               draggable={false}
             />
           </Link>

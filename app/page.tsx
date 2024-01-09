@@ -67,11 +67,11 @@ export default function Home() {
           className="w-full h-[700px] object-cover brightness-50 animate-image"
         />
         <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] ">
-          <div className="select-none tracking-wide text-center">
+          <div className="select-none tracking-wide text-center flex flex-col items-center ">
             {covertToHtmlWithAnimation(
               heroBannerContent
                 ? heroBannerContent!.content
-                : '<span style="color:white; font-size: 24px" className"animate fadeIn-1">Welcome to Vanahai</span>'
+                : '<span style="color:white; font-size: 24px;" className="animate fadeIn-1">Welcome to Vanahai</span>'
             )}
           </div>
           <div className="flex justify-center pt-5 animate fadeIn-2">
@@ -116,7 +116,6 @@ export default function Home() {
               <div
                 className="w-[calc(100vw-80px)] 
                   md:w-[680px] 
-                  lg:w-[500px]
                   mt-4"
               >
                 {bodyRightContent ? (
