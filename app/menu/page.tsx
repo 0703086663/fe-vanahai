@@ -160,8 +160,10 @@ const Page = () => {
                           if (cate.id !== product.categoryId) return
                           return (
                             <div
-                              className={`relative animate-product fadeIn-${
-                                index + 1
+                              className={`relative animate-product ${
+                                !matchesResponsive
+                                  ? 'fadeIn-1'
+                                  : `fadeIn-${index + 1}`
                               }`}
                               key={product.id}
                             >
