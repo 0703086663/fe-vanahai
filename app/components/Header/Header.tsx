@@ -48,7 +48,7 @@ const Header = ({ hasBackground = true }: { hasBackground: boolean }) => {
           />
         </Link>
       </div>
-      <nav className="hidden lg:block navigation">
+      <nav className="hidden lg:!block navigation">
         <ul className="flex">
           <li className="ml-20">
             <Link
@@ -124,7 +124,7 @@ const Header = ({ hasBackground = true }: { hasBackground: boolean }) => {
         <DensityMediumIcon
           onClick={() => setOpenNav(!openNav)}
           fontSize="medium"
-          className={`block lg:hidden ${
+          className={`block lg:!hidden ${
             isScroll
               ? 'hover:brightness-200 text-black active:text-[#00000090]'
               : 'hover:brightness-90 text-white active:text-[#ffffff90]'
