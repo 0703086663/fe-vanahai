@@ -61,7 +61,7 @@ const Page = () => {
   return (
     <>
       <Header hasBackground={false} />
-      <div className="container mx-auto px-4 pb-12 pt-[120px]">
+      <div className="container mx-auto px-4 pb-12 pt-[120px] min-h-[calc(100vh-200px)] md:min-h-[calc(100vh-100px)]">
         <div className="text-black text-5xl md:text-6xl font-normal leading-[76.80px] text-center">
           <span>Our menu</span>
         </div>
@@ -141,8 +141,8 @@ const Page = () => {
                 return (
                   <Fragment key={cate.id}>
                     <div
-                      className={`flex flex-col my-4 animate-product fadeIn-${
-                        index + 1
+                      className={`flex flex-col my-4 animate-product ${
+                        selected !== 'all' ? 'fadeIn-1' : `fadeIn-${index + 1}`
                       }`}
                       onClick={() => openProductFromCategory(cate.id)}
                     >
@@ -161,7 +161,7 @@ const Page = () => {
                           return (
                             <div
                               className={`relative animate-product ${
-                                !matchesResponsive
+                                !matchesResponsive || selected !== 'all'
                                   ? 'fadeIn-1'
                                   : `fadeIn-${index + 1}`
                               }`}

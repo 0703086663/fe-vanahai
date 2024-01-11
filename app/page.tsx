@@ -116,7 +116,7 @@ export default function Home() {
               <div
                 className="w-[calc(100vw-80px)] 
                   md:w-[680px] 
-                  mt-4"
+                  mt-4 text-slate-500 text-sm"
               >
                 {bodyRightContent ? (
                   covertToHtmlWithAnimation(bodyRightContent.content)

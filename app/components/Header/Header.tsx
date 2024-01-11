@@ -86,11 +86,11 @@ const Header = ({ hasBackground = true }: { hasBackground: boolean }) => {
           </li>
           <li className="ml-20">
             <Link
-              href="/about-us"
+              href="/our-stories"
               className={`select-none text-lg font-medium" ${
-                pathname === '/about-us' && isScroll
+                pathname === '/our-stories' && isScroll
                   ? 'text-[#2596BE]'
-                  : pathname === '/about-us' && !isScroll
+                  : pathname === '/our-stories' && !isScroll
                   ? 'text-[#99FFFF]'
                   : isScroll
                   ? 'text-black'
@@ -98,7 +98,41 @@ const Header = ({ hasBackground = true }: { hasBackground: boolean }) => {
               } tracking-wide`}
               draggable={false}
             >
-              About Us
+              Our Stories
+            </Link>
+          </li>
+          <li className="ml-20">
+            <Link
+              href="/our-store"
+              className={`select-none text-lg font-medium" ${
+                pathname === '/our-store' && isScroll
+                  ? 'text-[#2596BE]'
+                  : pathname === '/our-store' && !isScroll
+                  ? 'text-[#99FFFF]'
+                  : isScroll
+                  ? 'text-black'
+                  : 'text-white'
+              } tracking-wide`}
+              draggable={false}
+            >
+              Our Store
+            </Link>
+          </li>
+          <li className="ml-20">
+            <Link
+              href="/news"
+              className={`select-none text-lg font-medium" ${
+                pathname === '/news' && isScroll
+                  ? 'text-[#2596BE]'
+                  : pathname === '/news' && !isScroll
+                  ? 'text-[#99FFFF]'
+                  : isScroll
+                  ? 'text-black'
+                  : 'text-white'
+              } tracking-wide`}
+              draggable={false}
+            >
+              News
             </Link>
           </li>
           <li className="ml-20">
@@ -152,10 +186,29 @@ const Header = ({ hasBackground = true }: { hasBackground: boolean }) => {
               </ListItem>
             </Link>
             <Divider />
-            <Link href="/about-us">
+            <Link href="/our-stories">
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemText primary={'About Us'} className="text-center" />
+                  <ListItemText
+                    primary={'Our Stories'}
+                    className="text-center"
+                  />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Divider />
+            <Link href="/our-store">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary={'Our Store'} className="text-center" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Divider />
+            <Link href="/news">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemText primary={'News'} className="text-center" />
                 </ListItemButton>
               </ListItem>
             </Link>

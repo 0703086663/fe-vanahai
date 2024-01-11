@@ -1,183 +1,95 @@
 'use client'
 
 import React from 'react'
-import Image from 'next/image'
-import Map from '../components/Map/Map'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination, Autoplay, Navigation } from 'swiper/modules'
-import { Divider, IconButton, Tooltip } from '@mui/material'
-import {
-  FacebookOutlined,
-  InsertLinkOutlined,
-  Instagram,
-  MessageOutlined,
-} from '@mui/icons-material'
-import ContactForm from './components/ContactForm'
-import DirectionsCarFilledOutlined from '@mui/icons-material/DirectionsCar'
-import ChildCareOutlinedIcon from '@mui/icons-material/ChildCareOutlined'
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
-import './styles.css'
 
 const Page = () => {
   return (
     <>
       <Header hasBackground={false} />
-      <div className="container mx-auto px-4 pb-10 pt-[140px] h-full">
-        <section className="flex flex-col gap-8 md:flex-row h-full">
-          <div className="md:w-1/2 md:order-2">
-            <div>
-              <h1 className="text-3xl font-semibold tracking-wider animate fadeIn-1">
-                VanaHai Bubble Tea
-              </h1>
-              <p className="text-slate-500 tracking-wide py-3 leading-6 animate fadeIn-2">
-                Welcome to VanaHai Bubble Tea, where we transport you to the
-                vibrant streets of Taiwan with every sip.
-              </p>
-              <div className="flex justify-between pt-5">
-                <div>
-                  <h3 className="font-semibold animate fadeIn-3">Address</h3>
-                  <p className="py-3 leading-6 animate fadeIn-4 text-slate-500">
-                    Estonia pst 7-105A, Tallinn, Estonia
-                  </p>
-                  <h3 className="font-semibold animate fadeIn-5">Hotline</h3>
-                  <p className="py-3 animate fadeIn-6">
-                    <a
-                      href="tel:+37255600122"
-                      className="leading-6 text-slate-500 border-slate-400 border-0 border-b"
-                    >
-                      +372 5560 0122
-                    </a>
-                  </p>
-                  <h3 className="font-semibold animate fadeIn-7">
-                    Time Opening
-                  </h3>
-                  <p className="py-3 animate fadeIn-8 text-slate-500">
-                    12:00 - 20:00
-                  </p>
-                  <div className="location-meta py-3 flex flex-col md:flex-row gap-2">
-                    <span className="parking flex animate fadeIn-9">
-                      <DirectionsCarFilledOutlined className="text-slate-600" />
-                      <span className="px-1 text-slate-500">
-                        Parking available
-                      </span>
-                    </span>
-                    <span className="self-serving flex animate fadeIn-10">
-                      <ChildCareOutlinedIcon className="text-slate-600" />
-                      <span className="px-1 text-slate-500">Friendly</span>
-                    </span>
-                    <span className="take-away flex animate fadeIn-11">
-                      <ShoppingBagOutlinedIcon className="text-slate-600" />
-                      <span className="px-1 text-slate-500">Take away</span>
-                    </span>
-                  </div>
-                </div>
-                {/* TODO */}
-                <div className="flex flex-col gap-2">
-                  <Tooltip
-                    title="Share via Facebook"
-                    placement="left"
-                    className="animate fadeIn-12"
-                  >
-                    <IconButton>
-                      <FacebookOutlined />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip
-                    title="Share via Instagram"
-                    placement="left"
-                    className="animate fadeIn-13"
-                  >
-                    <IconButton>
-                      <Instagram />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip
-                    title="Share via Message"
-                    placement="left"
-                    className="animate fadeIn-14"
-                  >
-                    <IconButton>
-                      <MessageOutlined />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip
-                    title="Copy link"
-                    placement="left"
-                    className="animate fadeIn-15"
-                  >
-                    <IconButton>
-                      <InsertLinkOutlined />
-                    </IconButton>
-                  </Tooltip>
-                </div>
+      <div className="container mx-auto px-4 pb-10 pt-[140px] h-full min-h-[calc(100vh-200px)] md:min-h-[calc(100vh-100px)]">
+        <section>
+          <div className="flex items-center flex-col">
+            <h1 className="text-[28px] md:text-6xl text-center animate fadeIn-1">
+              We’re happy to hear from you
+            </h1>
+            <form className="flex flex-col items-center md:w-[600px]">
+              <div className="flex items-center w-full mt-7 animate fadeIn-2">
+                <label
+                  htmlFor="name"
+                  className="w-[150px] cursor-default text-xl"
+                >
+                  Name <span className="text-red-700">*</span>
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  className="px-[10px] h-[42px] w-full border-0 border-b max-w-[572px] focus:outline-none"
+                  required
+                />
               </div>
-            </div>
+              <div className="flex items-center w-full mt-7 animate fadeIn-3">
+                <label
+                  htmlFor="email"
+                  className="w-[150px] cursor-default text-xl"
+                >
+                  Email <span className="text-red-700">*</span>
+                </label>
+                <input
+                  id="email"
+                  type="text"
+                  name="email"
+                  className="px-[10px] h-[42px] w-full border-0 border-b max-w-[572px] focus:outline-none"
+                  required
+                />
+              </div>
+              <div className="flex items-center w-full mt-7 animate fadeIn-4">
+                <label
+                  htmlFor="subject"
+                  className="w-[150px] cursor-default text-xl"
+                >
+                  Subject <span className="text-red-700">*</span>
+                </label>
+                <select
+                  name="subject"
+                  id="subject"
+                  className="px-[10px] h-[42px] w-full border-0 border-b max-w-[572px] focus:outline-none"
+                  required
+                >
+                  <option value="" disabled>
+                    Select
+                  </option>
+                  <option value="compliment">Compliment</option>
+                  <option value="complaint">Complaint</option>
+                  <option value="question">Question</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div className="flex items-center w-full mt-7 animate fadeIn-5">
+                <label
+                  htmlFor="message"
+                  className="w-[150px] cursor-default text-xl place-self-start"
+                >
+                  Message <span className="text-red-700">*</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  className="px-[10px] w-full border-0 border-b max-w-[572px] focus:outline-none"
+                  rows={5}
+                  required
+                />
+              </div>
+              <button className="text-white shadow-md bg-[#2596BE] hover:brightness-110 active:scale-[98%] p-3 rounded-lg w-40 tracking-wider flex justify-between items-center mt-7 animate fadeIn-6">
+                <span className="ml-2">Submit</span>
+                <ArrowForwardIosIcon className="text-sm" />
+              </button>
+            </form>
           </div>
-          <div className="md:w-1/2 md:order-1 flex flex-col gap-4 items-center">
-            <div className="h-full w-full relative animate fadeIn-1">
-              <Swiper
-                spaceBetween={10}
-                centeredSlides={true}
-                pagination={{
-                  clickable: true,
-                }}
-                autoplay={{
-                  delay: 4500,
-                  disableOnInteraction: false,
-                }}
-                loop
-                modules={[Pagination, Autoplay, Navigation]}
-                className="mySwiper w-auto select-none"
-              >
-                <SwiperSlide>
-                  <Image
-                    src="/location/shop.jpg"
-                    width={500}
-                    height={400}
-                    alt="logo"
-                    draggable={false}
-                    priority
-                    className="object-cover h-[390px] w-full rounded-xl"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Image
-                    src="/location/shop1.jpg"
-                    width={500}
-                    height={400}
-                    alt="logo"
-                    draggable={false}
-                    priority
-                    className="object-cover h-[390px] w-full rounded-xl"
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Image
-                    src="/location/shop2.jpg"
-                    width={500}
-                    height={400}
-                    alt="logo"
-                    draggable={false}
-                    priority
-                    className="object-cover h-[390px] w-full rounded-xl"
-                  />
-                </SwiperSlide>
-              </Swiper>
-            </div>
-          </div>
-        </section>
-        <Divider className="my-10" />
-        <section className={`animate fadeIn-12`}>
-          <ContactForm />
-        </section>
-        <section className="h-[300px] w-full mt-10 animate fadeIn-13">
-          <Map />
         </section>
       </div>
       <Footer />

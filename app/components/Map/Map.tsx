@@ -38,7 +38,7 @@ const Map = () => {
   return (
     <div
       id="map-container"
-      style={{ width: 'auto', height: '300px', borderRadius: '12px' }}
+      style={{ width: 'auto', height: '600px', borderRadius: '12px' }}
     />
   )
 }
