@@ -5,8 +5,10 @@ import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import { PageContentInterface } from '../interfaces/interface'
 import { fetchPageContent } from '../services/fetchData'
+import Skeleton from '@mui/material/Skeleton'
 import covertToHtmlWithAnimation from '../utils/covertToHtmlWithAnimation'
 import 'react-quill/dist/quill.core.css'
+import randomWidthSkeleton from '../utils/randomWidthSkeleton'
 
 const Page = () => {
   const [pageContentData, setPageContentData] = useState<
@@ -31,21 +33,30 @@ const Page = () => {
 
   return (
     <>
-      <Header hasBackground={false} />
-      <section className="container mx-auto px-10 pt-[140px] flex flex-col items-center min-h-[calc(100vh-200px)] md:min-h-[calc(100vh-100px)]">
-        <div className="relative flex justify-center">
-          <h1 className="text-3xl pb-[40px] animate fadeIn-1">OUR STORIES</h1>
-          <div className="absolute bg-[#2596BE] h-[2.5px] w-8 top-1/2 animate fadeIn-2"></div>
-        </div>
-        <div className="relative flex justify-center max-w-[840px]">
+      <Header />
+      <div className="container mx-auto px-10 pt-[140px] flex flex-col items-center min-h-[calc(100vh-200px)] md:min-h-[calc(100vh-100px)]">
+        <section className="relative flex justify-center mb-8">
+          <h1 className="text-3xl animate fadeIn-1">OUR STORIES</h1>
+          <div className="absolute bg-[#2596BE] h-[2.5px] w-8 bottom-[-8px] animate fadeIn-2"></div>
+        </section>
+        <section className="relative flex justify-center max-w-[840px]">
           <div className="pl-4 text-center border-[2.5px] border-y-0 border-r-0 border-solid border-[#2596BE]">
             {covertToHtmlWithAnimation(quoteContent && quoteContent!.content)}
           </div>
-        </div>
-        <div className="max-w-[740px] py-[40px] tracking-wide">
-          {covertToHtmlWithAnimation(mainContent ? mainContent!.content : '')}
-        </div>
-      </section>
+        </section>
+        <section className="max-w-[740px] min-w-[300px] md:min-w-[500px] pb-[40px] tracking-wide">
+          {mainContent
+            ? covertToHtmlWithAnimation(mainContent!.content)
+            : Array.from({ length: 12 }).map((_, index) => (
+                <div
+                  key={index}
+                  className={`select-none my-2 animate fadeIn-${index + 1}`}
+                >
+                  <Skeleton animation="wave" width={randomWidthSkeleton()} />
+                </div>
+              ))}
+        </section>
+      </div>
       <Footer />
     </>
   )

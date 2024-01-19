@@ -5,6 +5,10 @@
   font-family: 'GFS Didot';
   src: url('../public/fonts/GFS_Didot/GFSDidot-Regular.ttf');
 }
+@font-face {
+  font-family: 'Poppins';
+  src: url('../public/fonts/Poppins/Poppins-Regular.ttf');
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -108,6 +112,8 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+* {
   font-family: 'GFS Didot';
 }
 img,
@@ -353,6 +359,9 @@ input[type='button'] {
 }
 .fadeIn-23 {
   animation-delay: 7.95s;
+}
+.fadeIn-24 {
+  animation-delay: 8.3s;
 }
 
 .animate-image {

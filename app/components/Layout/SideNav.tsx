@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 const Logo = () => {
   return (
     <Image
-      src={'/logo-white.png'}
+      src="/logo.png"
       alt="Logo"
       width={64}
       height={64}

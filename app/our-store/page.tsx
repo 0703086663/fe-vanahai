@@ -14,9 +14,6 @@ import {
   Instagram,
   MessageOutlined,
 } from '@mui/icons-material'
-import DirectionsCarFilledOutlined from '@mui/icons-material/DirectionsCar'
-import ChildCareOutlinedIcon from '@mui/icons-material/ChildCareOutlined'
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined'
 import CheckIcon from '@mui/icons-material/Check'
 
 import 'swiper/css'
@@ -27,14 +24,14 @@ import './styles.css'
 const Page = () => {
   return (
     <>
-      <Header hasBackground={false} />
+      <Header />
       <div className="container mx-auto px-10 pt-[140px] flex flex-col items-center min-h-[calc(100vh-100px)]">
-        <section className="relative flex justify-center pb-[40px]">
+        <section className="relative flex justify-center mb-8">
           <h1 className="text-3xl animate fadeIn-1">OUR STORE</h1>
-          <div className="absolute bg-[#2596BE] h-[2.5px] w-8 top-1/2 animate fadeIn-2"></div>
+          <div className="absolute bg-[#2596BE] h-[2.5px] w-8 bottom-[-8px] animate fadeIn-2"></div>
         </section>
         <section className="flex flex-col gap-8 md:flex-row h-full pb-10 md:pb-[70px]">
-          <div className="md:!w-1/2 md:order-2">
+          <div className="md:w-1/2 md:order-2">
             <div>
               <h1 className="text-3xl font-semibold tracking-wider animate fadeIn-3">
                 VanaHai Bubble Tea
@@ -107,8 +104,8 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-1/2 md:order-1 flex flex-col gap-4 items-center">
-            <div className="h-full w-full relative animate fadeIn-1">
+          <div className="md:w-1/2 md:order-1">
+            <div className="h-full w-full max-w-[calc(100vw-40px)] md:max-w-[600px] relative animate fadeIn-1">
               <Swiper
                 spaceBetween={10}
                 centeredSlides={true}

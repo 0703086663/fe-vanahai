@@ -23,7 +23,7 @@ const covertToHtmlWithAnimation = (content: string | undefined) => {
   }
 
   return (
-    <div className="ql-editor tracking-wider">
+    <div className="ql-editor tracking-wider !overflow-y-hidden">
       {parse(content, parserOptions)}
     </div>
   )

@@ -9,7 +9,7 @@ import Footer from '../components/Footer/Footer'
 const Page = () => {
   return (
     <>
-      <Header hasBackground={false} />
+      <Header />
       <div className="container mx-auto px-4 pb-10 pt-[140px] h-full min-h-[calc(100vh-200px)] md:min-h-[calc(100vh-100px)]">
         <section>
           <div className="flex items-center flex-col">

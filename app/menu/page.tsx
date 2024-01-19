@@ -7,6 +7,7 @@ import Footer from '../components/Footer/Footer'
 import Header from '../components/Header/Header'
 import { CategoryInterface, Product } from '../interfaces/interface'
 import axios from 'axios'
+import randomWidthSkeleton from '../utils/randomWidthSkeleton'
 
 const Page = () => {
   const [products, setProducts] = useState<Product[]>([])
@@ -15,10 +16,6 @@ const Page = () => {
   const [selected, setSelected] = useState('all')
   const [clickedCategory, setlickedCategory] = useState('')
   const matchesResponsive = useMediaQuery('(min-width:1024px)')
-
-  const randomWidthSkeleton = () => {
-    return `${Math.floor(Math.random() * (90 - 50 + 1) + 50)}%`
-  }
 
   const openProductFromCategory = (cateId?: string) => {
     clickedCategory === cateId
@@ -60,11 +57,12 @@ const Page = () => {
 
   return (
     <>
-      <Header hasBackground={false} />
+      <Header />
       <div className="container mx-auto px-4 pb-12 pt-[120px] min-h-[calc(100vh-200px)] md:min-h-[calc(100vh-100px)]">
-        <div className="text-black text-5xl md:text-6xl font-normal leading-[76.80px] text-center">
-          <span>Our menu</span>
-        </div>
+        <section className="relative flex justify-center mb-8">
+          <h1 className="text-3xl animate fadeIn-1">OUR MENU</h1>
+          <div className="absolute bg-[#2596BE] h-[2.5px] w-8 bottom-[-8px] animate fadeIn-2"></div>
+        </section>
         <div className="flex relative">
           <div className="hidden lg:block w-[270px] h-[704px] ">
             {category.length !== 0 && (

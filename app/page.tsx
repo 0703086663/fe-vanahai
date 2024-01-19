@@ -56,8 +56,8 @@ export default function Home() {
 
   return (
     <>
-      <Header hasBackground />
-      <section className="relative">
+      <Header />
+      <section className="relative pt-20 md:pt-[100px]">
         <Image
           src={heroBannerImage ? heroBannerImage.image : '/banner.jpg'}
           height={1584}
@@ -67,7 +67,7 @@ export default function Home() {
           className="w-full h-[700px] object-cover brightness-50 animate-image"
         />
         <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] ">
-          <div className="select-none tracking-wide text-center flex flex-col items-center ">
+          <div className="select-none tracking-wide text-center [&>div]:text-center">
             {covertToHtmlWithAnimation(
               heroBannerContent
                 ? heroBannerContent!.content
