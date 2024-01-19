@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: 'GFS Didot';
+  src: url('../public/fonts/GFS_Didot/GFSDidot-Regular.ttf');
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -104,6 +108,7 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
+  font-family: 'GFS Didot';
 }
 img,
 object,
