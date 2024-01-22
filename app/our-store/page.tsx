@@ -85,7 +85,7 @@ const Page = () => {
             </div>
           </div>
           <div className="md:w-1/2 md:order-1">
-            <div className="h-full w-full max-w-[calc(100vw-40px)] md:max-w-[600px] relative animate fadeIn-1">
+            <div className="h-full w-full max-w-[calc(100vw-40px)] md:max-w-[900px] relative animate fadeIn-1">
               <Swiper
                 spaceBetween={10}
                 centeredSlides={true}
