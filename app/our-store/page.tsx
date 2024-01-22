@@ -25,29 +25,29 @@ const Page = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto px-10 pt-[140px] flex flex-col items-center min-h-[calc(100vh-100px)]">
+      <div className="container mx-auto px-5 md:px-10 pt-[140px] flex flex-col items-center min-h-[calc(100vh-100px)] relative">
         <section className="relative flex justify-center mb-8">
           <h1 className="text-3xl animate fadeIn-1">OUR STORE</h1>
           <div className="absolute bg-[#2596BE] h-[2.5px] w-8 bottom-[-8px] animate fadeIn-2"></div>
         </section>
-        <section className="flex flex-col gap-8 md:flex-row h-full pb-10 md:pb-[70px]">
+        <section className="flex flex-col gap-8 md:flex-row h-full w-full pb-10 md:pb-[70px] animate fadeIn-3">
           <div className="md:w-1/2 md:order-2">
             <div>
-              <h1 className="text-3xl font-semibold tracking-wider animate fadeIn-3">
+              <h1 className="text-3xl font-semibold tracking-wider">
                 VanaHai Bubble Tea
               </h1>
-              <p className="text-slate-500 tracking-wide py-3 leading-6 animate fadeIn-4">
+              <p className="text-slate-500 tracking-wide py-3 leading-6">
                 Welcome to VanaHai Bubble Tea, where we transport you to the
                 vibrant streets of Taiwan with every sip.
               </p>
               <div className="flex justify-between pt-5">
                 <div>
-                  <h3 className="font-semibold animate fadeIn-5">Address</h3>
-                  <p className="py-3 leading-6 animate fadeIn-6 text-slate-500">
+                  <h3 className="font-semibold">Address</h3>
+                  <p className="py-3 leading-6 text-slate-500">
                     Estonia pst 7-105A, Tallinn, Estonia
                   </p>
-                  <h3 className="font-semibold animate fadeIn-7">Hotline</h3>
-                  <p className="py-3 animate fadeIn-8">
+                  <h3 className="font-semibold">Hotline</h3>
+                  <p className="py-3">
                     <a
                       href="tel:+37255600122"
                       className="leading-6 text-slate-500 border-slate-400 border-0 border-b"
@@ -55,48 +55,28 @@ const Page = () => {
                       +372 5560 0122
                     </a>
                   </p>
-                  <h3 className="font-semibold animate fadeIn-9">
-                    Time Opening
-                  </h3>
-                  <p className="py-3 animate fadeIn-10 text-slate-500">
-                    12:00 - 20:00
-                  </p>
+                  <h3 className="font-semibold">Time Opening</h3>
+                  <p className="py-3 text-slate-500">12:00 - 20:00</p>
                 </div>
                 {/* TODO */}
                 <div className="flex flex-col gap-2">
-                  <Tooltip
-                    title="Share via Facebook"
-                    placement="left"
-                    className="animate fadeIn-11"
-                  >
-                    <IconButton>
+                  <Tooltip title="Share via Facebook" placement="left">
+                    <IconButton className="[&>*:hover]:text-[#2596BE]">
                       <FacebookOutlined />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip
-                    title="Share via Instagram"
-                    placement="left"
-                    className="animate fadeIn-12"
-                  >
-                    <IconButton>
+                  <Tooltip title="Share via Instagram" placement="left">
+                    <IconButton className="[&>*:hover]:text-[#2596BE]">
                       <Instagram />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip
-                    title="Share via Message"
-                    placement="left"
-                    className="animate fadeIn-13"
-                  >
-                    <IconButton>
+                  <Tooltip title="Share via Message" placement="left">
+                    <IconButton className="[&>*:hover]:text-[#2596BE]">
                       <MessageOutlined />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip
-                    title="Copy link"
-                    placement="left"
-                    className="animate fadeIn-14"
-                  >
-                    <IconButton>
+                  <Tooltip title="Copy link" placement="left">
+                    <IconButton className="[&>*:hover]:text-[#2596BE]">
                       <InsertLinkOutlined />
                     </IconButton>
                   </Tooltip>
@@ -157,9 +137,12 @@ const Page = () => {
             </div>
           </div>
         </section>
-        <section className="flex flex-col gap-8 md:flex-row h-full md:min-h-[calc(100vh-100px)] w-full pb-[40px]">
-          <div className="md:w-[30%] [&>p]:tracking-wide md:overflow-y-scroll md:max-h-[600px]">
-            <div className="animate fadeIn-15">
+        <section className="flex flex-col gap-8 md:flex-row h-full md:min-h-[calc(100vh-100px)] w-full pb-[40px] animate fadeIn-4">
+          <div
+            className="md:w-[30%] [&>p]:tracking-wide md:overflow-y-scroll md:max-h-[600px]"
+            id="scrollbar-css"
+          >
+            <div>
               <h3 className="py-1">Service Options</h3>
               <div className="grid grid-cols-2 [&>p]:flex [&>p]:items-center [&>p]:text-sm [&>p]:py-1 [&>p]:leading-6 [&>p]:text-slate-500">
                 <p className="">
@@ -176,8 +159,8 @@ const Page = () => {
                 </p>
               </div>
             </div>
-            <Divider className="my-3 animate fadeIn-15" />
-            <div className="animate fadeIn-16">
+            <Divider className="my-3" />
+            <div className="">
               <h3 className="py-1">Services</h3>
               <div className="grid grid-cols-2 [&>p]:flex [&>p]:items-center [&>p]:text-sm [&>p]:py-1 [&>p]:leading-6 [&>p]:text-slate-500">
                 <p className="">
@@ -185,8 +168,8 @@ const Page = () => {
                 </p>
               </div>
             </div>
-            <Divider className="my-3 animate fadeIn-16" />
-            <div className="animate fadeIn-17">
+            <Divider className="my-3" />
+            <div className="">
               <h3 className="py-1">Dining Options</h3>
               <div className="grid grid-cols-2 [&>p]:flex [&>p]:items-center [&>p]:text-sm [&>p]:py-1 [&>p]:leading-6 [&>p]:text-slate-500">
                 <p className="">
@@ -197,8 +180,8 @@ const Page = () => {
                 </p>
               </div>
             </div>
-            <Divider className="my-3 animate fadeIn-17" />
-            <div className="animate fadeIn-18">
+            <Divider className="my-3" />
+            <div className="">
               <h3 className="py-1">Facilities</h3>
               <div className="grid grid-cols-2 [&>p]:flex [&>p]:items-center [&>p]:text-sm [&>p]:py-1 [&>p]:leading-6 [&>p]:text-slate-500">
                 <p className="">
@@ -209,8 +192,8 @@ const Page = () => {
                 </p>
               </div>
             </div>
-            <Divider className="my-3 animate fadeIn-18" />
-            <div className="animate fadeIn-19">
+            <Divider className="my-3" />
+            <div className="">
               <h3 className="py-1">Ambiance</h3>
               <div className="grid grid-cols-2 [&>p]:flex [&>p]:items-center [&>p]:text-sm [&>p]:py-1 [&>p]:leading-6 [&>p]:text-slate-500">
                 <p className="">
@@ -218,8 +201,8 @@ const Page = () => {
                 </p>
               </div>
             </div>
-            <Divider className="my-3 animate fadeIn-19" />
-            <div className="animate fadeIn-20">
+            <Divider className="my-3" />
+            <div className="">
               <h3 className="py-1">Customers</h3>
               <div className="grid grid-cols-2 [&>p]:flex [&>p]:items-center [&>p]:text-sm [&>p]:py-1 [&>p]:leading-6 [&>p]:text-slate-500">
                 <p className="">
@@ -234,8 +217,8 @@ const Page = () => {
                 </p>
               </div>
             </div>
-            <Divider className="my-3 animate fadeIn-20" />
-            <div className="animate fadeIn-21">
+            <Divider className="my-3" />
+            <div className="">
               <h3 className="py-1">Payment</h3>
               <div className="grid grid-cols-2 [&>p]:flex [&>p]:items-center [&>p]:text-sm [&>p]:py-1 [&>p]:leading-6 [&>p]:text-slate-500">
                 <p className="">
@@ -250,8 +233,8 @@ const Page = () => {
                 </p>
               </div>
             </div>
-            <Divider className="my-3 animate fadeIn-21" />
-            <div className="animate fadeIn-22">
+            <Divider className="my-3" />
+            <div className="">
               <h3 className="py-1">Children</h3>
               <div className="grid grid-cols-2 [&>p]:flex [&>p]:items-center [&>p]:text-sm [&>p]:py-1 [&>p]:leading-6 [&>p]:text-slate-500">
                 <p className="">
@@ -259,8 +242,8 @@ const Page = () => {
                 </p>
               </div>
             </div>
-            <Divider className="my-3 animate fadeIn-22" />
-            <div className="animate fadeIn-23">
+            <Divider className="my-3" />
+            <div className="">
               <h3 className="py-1">Pets</h3>
               <div className="grid grid-cols-2 [&>p]:flex [&>p]:items-center [&>p]:text-sm [&>p]:py-1 [&>p]:leading-6 [&>p]:text-slate-500">
                 <p className="">
@@ -275,7 +258,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-[70%] h-[600px] w-full animate fadeIn-15">
+          <div className="md:w-[70%] h-[600px] w-full">
             <Map />
           </div>
         </section>

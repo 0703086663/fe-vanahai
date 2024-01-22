@@ -48,3 +48,11 @@ export interface ContactInterface {
   message: string
   createdAt: string
 }
+
+export interface NewInterface {
+  id?: string
+  name: string
+  image: string
+  description?: string
+  createdAt: string
+}

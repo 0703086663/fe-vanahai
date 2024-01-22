@@ -2,6 +2,7 @@ import {
   CategoryInterface,
   ContactInterface,
   ProductInterface,
+  NewInterface,
 } from './../interfaces/interface'
 import {
   PageContentInterface,
@@ -100,6 +101,30 @@ export const fetchContactById = async (contactId: string) => {
       `${process.env.NEXT_PUBLIC_API_LINK}/contact/${contactId}`
     )
     const data: ContactInterface[] = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+
+export const fetchNew = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_LINK}/new`)
+    const data: NewInterface[] = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    throw error
+  }
+}
+
+export const fetchNewById = async (id: string) => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_LINK}/new/${id}`
+    )
+    const data: NewInterface = await response.json()
     return data
   } catch (error) {
     console.error('Error fetching data:', error)

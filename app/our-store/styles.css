@@ -11,3 +11,12 @@
 .swiper-pagination-bullet-active {
   background-color: #2596be;
 }
+
+#scrollbar-css::-webkit-scrollbar {
+  width: 4px;
+}
+
+#scrollbar-css::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #2596be;
+}

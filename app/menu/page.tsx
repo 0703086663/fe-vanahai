@@ -58,13 +58,13 @@ const Page = () => {
   return (
     <>
       <Header />
-      <div className="container mx-auto px-4 pb-12 pt-[120px] min-h-[calc(100vh-200px)] md:min-h-[calc(100vh-100px)]">
+      <div className="container mx-auto px-4 pb-12 pt-[120px] min-h-[calc(100vh-200px)]">
         <section className="relative flex justify-center mb-8">
           <h1 className="text-3xl animate fadeIn-1">OUR MENU</h1>
           <div className="absolute bg-[#2596BE] h-[2.5px] w-8 bottom-[-8px] animate fadeIn-2"></div>
         </section>
         <div className="flex relative">
-          <div className="hidden lg:block w-[270px] h-[704px] ">
+          <div className="hidden lg:block w-[270px]">
             {category.length !== 0 && (
               <>
                 <div
