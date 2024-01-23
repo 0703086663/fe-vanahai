@@ -43,7 +43,7 @@ const Page = () => {
           <div className="absolute bg-[#2596BE] h-[2.5px] w-8 bottom-[-8px] animate fadeIn-2"></div>
         </section>
         <section className="">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-10">
             {currentItems &&
               currentItems
                 .sort(
@@ -55,23 +55,25 @@ const Page = () => {
                   <Link
                     href={`/news/${data.id}`}
                     key={data.id}
-                    className="relative group/item shadow-lg overflow-hidden select-none cursor-pointer"
+                    className="relative group shadow-lg overflow-hidden select-none cursor-pointer"
                   >
                     <Image
                       src={data.image}
                       alt={data.name}
                       height={300}
                       width={400}
-                      className="group-hover/item:scale-125 duration-500"
+                      className="group-hover:scale-125 duration-500 object-cover h-[300px]"
                     />
                     <div className="absolute left-0 bottom-0 w-full group">
                       <div className="overlay bg-[#00000090] text-white flex flex-col justify-between">
                         <p className="card-title text-sm transition-all duration-500 group-hover:pr-4">
                           {convertDateToText(data.createdAt)}
                         </p>
-                        <p className="mt-5 truncate group-hover:overflow-hidden group-hover:whitespace-normal">
-                          {data.name}
-                        </p>
+                        <div className="mt-5 overflow-hidden group-hover:max-h-[4.5rem]">
+                          <p className="truncate group-hover:overflow-hidden group-hover:whitespace-normal">
+                            {data.name}
+                          </p>
+                        </div>
                         <p className="group-hover:block hidden text-xs mt-4 text-slate-300 transition-all">
                           Find out more <ArrowForwardIcon fontSize="small" />
                         </p>

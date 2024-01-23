@@ -59,12 +59,12 @@ const Page = () => {
                     {newData.description}
                   </p>
                 )}
-                <div className="pt-8 animate fadeIn-4">
+                <div className="pt-8 animate fadeIn-4 h-fit">
                   <Image
                     src={newData!.image}
                     fill
                     alt="Name news"
-                    className="object-contain !static"
+                    className="object-contain !static max-h-[500px]"
                   />
                 </div>
               </div>
@@ -74,7 +74,7 @@ const Page = () => {
               <h1 className="text-3xl text-center leading-10 tracking-wide py-10 animate fadeIn-5">
                 Related News
               </h1>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 w-full animate fadeIn-6">
+              <div className="grid md:grid-cols-3 gap-10 w-full animate fadeIn-6">
                 {relatedData &&
                   relatedData
                     .filter((data) => data.id !== id)
@@ -88,23 +88,25 @@ const Page = () => {
                       <Link
                         href={`/news/${data.id}`}
                         key={data.id}
-                        className="relative group/item shadow-lg overflow-hidden select-none cursor-pointer"
+                        className="relative group shadow-lg overflow-hidden select-none cursor-pointer"
                       >
                         <Image
                           src={data.image}
                           alt={data.name}
                           height={200}
                           width={300}
-                          className="group-hover/item:scale-125 duration-500"
+                          className="group-hover:scale-125 duration-500 h-[200px] object-cover"
                         />
                         <div className="absolute left-0 bottom-0 w-full group">
                           <div className="overlay bg-[#00000090] text-white flex flex-col justify-between">
                             <p className="card-title text-sm transition-all duration-500 group-hover:pr-4">
                               {convertDateToText(data.createdAt)}
                             </p>
-                            <p className="mt-5 truncate group-hover:overflow-hidden group-hover:whitespace-normal">
-                              {data.name}
-                            </p>
+                            <div className="overflow-hidden group-hover:max-h-[4.5rem]">
+                              <p className="mt-5 truncate group-hover:overflow-hidden group-hover:whitespace-normal">
+                                {data.name}
+                              </p>
+                            </div>
                             <p className="group-hover:block hidden text-xs mt-4 text-slate-300 transition-all">
                               Find out more{' '}
                               <ArrowForwardIcon fontSize="small" />
