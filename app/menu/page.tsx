@@ -171,7 +171,7 @@ const Page = () => {
                                   width={500}
                                   height={500}
                                   alt={product.name!}
-                                  className="object-contain hover:scale-110 duration-500"
+                                  className="object-contain hover:scale-125 md:hover:scale-110  duration-500"
                                   draggable={false}
                                 />
                                 {product.isBestSeller && (
