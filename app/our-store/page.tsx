@@ -1,20 +1,21 @@
 'use client'
 
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
 import Map from '../components/Map/Map'
 import Image from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination, Autoplay, Navigation } from 'swiper/modules'
-import { Divider, IconButton, Tooltip } from '@mui/material'
+import { Divider, IconButton, Input, Tooltip } from '@mui/material'
 import {
   FacebookOutlined,
   InsertLinkOutlined,
-  Instagram,
   MessageOutlined,
 } from '@mui/icons-material'
 import CheckIcon from '@mui/icons-material/Check'
+import XIcon from '@mui/icons-material/X'
+import Link from 'next/link'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -22,6 +23,17 @@ import 'swiper/css/navigation'
 import './styles.css'
 
 const Page = () => {
+  const [isCopied, setIsCopied] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const handleCopyClick = () => {
+    if (inputRef.current) {
+      inputRef.current.select()
+      document.execCommand('copy')
+      setIsCopied(true)
+    }
+  }
+
   return (
     <>
       <Header />
@@ -58,28 +70,62 @@ const Page = () => {
                   <h3 className="font-semibold">Time Opening</h3>
                   <p className="py-3 text-slate-500">12:00 - 20:00</p>
                 </div>
-                {/* TODO */}
-                <div className="flex flex-col gap-2">
-                  <Tooltip title="Share via Facebook" placement="left">
-                    <IconButton className="[&>*:hover]:text-[#2596BE]">
-                      <FacebookOutlined />
+                <div className="flex flex-col gap-3">
+                  <Link
+                    href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fvanahaibubbletea"
+                    target="_blank"
+                  >
+                    <Tooltip
+                      title="Share via Facebook"
+                      placement="left"
+                      className="group"
+                    >
+                      <IconButton>
+                        <FacebookOutlined className="group-hover:text-[#2596BE]" />
+                      </IconButton>
+                    </Tooltip>
+                  </Link>
+                  <Link
+                    href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.facebook.com%2Fvanahaibubbletea"
+                    target="_blank"
+                  >
+                    <Tooltip
+                      title="Share via Twitter (X)"
+                      placement="left"
+                      className="group"
+                    >
+                      <IconButton>
+                        <XIcon className="group-hover:text-[#2596BE]" />
+                      </IconButton>
+                    </Tooltip>
+                  </Link>
+                  <Link href="sms:&body=https%3A%2F%2Fwww.facebook.com%2Fvanahaibubbletea">
+                    <Tooltip
+                      title="Share via Message"
+                      placement="left"
+                      className="group"
+                    >
+                      <IconButton>
+                        <MessageOutlined className="group-hover:text-[#2596BE]" />
+                      </IconButton>
+                    </Tooltip>
+                  </Link>
+                  <Tooltip
+                    title={isCopied ? 'Link copied!' : 'Copy link'}
+                    placement="left"
+                    className="group"
+                  >
+                    <IconButton onClick={handleCopyClick}>
+                      <InsertLinkOutlined className="group-hover:text-[#2596BE]" />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title="Share via Instagram" placement="left">
-                    <IconButton className="[&>*:hover]:text-[#2596BE]">
-                      <Instagram />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Share via Message" placement="left">
-                    <IconButton className="[&>*:hover]:text-[#2596BE]">
-                      <MessageOutlined />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Copy link" placement="left">
-                    <IconButton className="[&>*:hover]:text-[#2596BE]">
-                      <InsertLinkOutlined />
-                    </IconButton>
-                  </Tooltip>
+                  <Input
+                    inputRef={inputRef}
+                    type="text"
+                    value="https://www.facebook.com/vanahaibubbletea"
+                    readOnly
+                    style={{ position: 'absolute', left: '-9999px' }}
+                  />
                 </div>
               </div>
             </div>

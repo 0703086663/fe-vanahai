@@ -1,12 +1,53 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import Header from '../components/Header/Header'
 import Footer from '../components/Footer/Footer'
+import axios from 'axios'
+import { Alert, Snackbar } from '@mui/material'
 
 const Page = () => {
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [subject, setSubject] = useState('compliment')
+  const [message, setMessage] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    try {
+      await axios.post(`http://localhost:3001/contact`, {
+        name,
+        email,
+        subject,
+        message,
+      })
+      setName('')
+      setEmail('')
+      setSubject('compliment')
+      setMessage('')
+      setOpenSnackbar(true)
+      setIsSuccess(true)
+    } catch (err) {
+      setOpenSnackbar(true)
+      setIsSuccess(false)
+    }
+  }
+
+  const handleCloseSnackbar = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpenSnackbar(false)
+  }
+
   return (
     <>
       <Header />
@@ -16,7 +57,12 @@ const Page = () => {
             <h1 className="text-[28px] md:text-6xl text-center animate fadeIn-1">
               We’re happy to hear from you
             </h1>
-            <form className="flex flex-col items-center md:w-[600px]">
+            <form
+              className="flex flex-col items-center md:w-[600px]"
+              onSubmit={handleSubmit}
+              method="POST"
+              action={`${process.env.NEXT_PUBLIC_API_LINK}/contact`}
+            >
               <div className="flex items-center w-full mt-7 animate fadeIn-2">
                 <label
                   htmlFor="name"
@@ -28,6 +74,8 @@ const Page = () => {
                   id="name"
                   type="text"
                   name="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="px-[10px] h-[42px] w-full border-0 border-b max-w-[572px] focus:outline-none"
                   required
                 />
@@ -43,6 +91,8 @@ const Page = () => {
                   id="email"
                   type="text"
                   name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="px-[10px] h-[42px] w-full border-0 border-b max-w-[572px] focus:outline-none"
                   required
                 />
@@ -57,6 +107,8 @@ const Page = () => {
                 <select
                   name="subject"
                   id="subject"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
                   className="px-[10px] h-[42px] w-full border-0 border-b max-w-[572px] focus:outline-none"
                   required
                 >
@@ -79,6 +131,8 @@ const Page = () => {
                 <textarea
                   id="message"
                   name="message"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                   className="px-[10px] w-full border-0 border-b max-w-[572px] focus:outline-none"
                   rows={5}
                   required
@@ -89,6 +143,22 @@ const Page = () => {
                 <ArrowForwardIosIcon className="text-sm" />
               </button>
             </form>
+            <Snackbar
+              open={openSnackbar}
+              autoHideDuration={6000}
+              onClose={handleCloseSnackbar}
+            >
+              <Alert
+                onClose={handleCloseSnackbar}
+                severity={isSuccess ? 'success' : 'error'}
+                variant="filled"
+                sx={{ width: '100%' }}
+              >
+                {isSuccess
+                  ? 'Thank you for your contribution!'
+                  : 'Error! Please try again'}
+              </Alert>
+            </Snackbar>
           </div>
         </section>
       </div>

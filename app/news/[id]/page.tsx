@@ -137,7 +137,6 @@ const Page = () => {
                 </div>
               </div>
             </section>
-            {/* TODO */}
             <section>
               <h1 className="text-3xl text-center leading-10 tracking-wide py-10">
                 Related News
