@@ -54,4 +54,13 @@ export const items = [
       </SvgIcon>
     ),
   },
+  {
+    title: 'News',
+    path: '/admin/news',
+    icon: (
+      <SvgIcon fontSize="small">
+        <LockClosedIcon />
+      </SvgIcon>
+    ),
+  },
 ]
