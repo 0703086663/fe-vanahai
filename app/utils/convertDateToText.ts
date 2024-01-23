@@ -7,6 +7,6 @@ const convertDateToText = (mongoDate: string): string => {
     month: '2-digit',
     year: 'numeric',
   }
-  return date.toLocaleString(undefined, options).replace(' ', ' - ')
+  return date.toLocaleString(undefined, options).replace(',', ' - ')
 }
 export default convertDateToText
