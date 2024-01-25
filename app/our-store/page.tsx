@@ -43,7 +43,7 @@ const Page = () => {
           <div className="absolute bg-[#2596BE] h-[2.5px] w-8 bottom-[-8px] animate fadeIn-2"></div>
         </section>
         <section className="flex flex-col gap-8 md:flex-row h-full w-full pb-10 md:pb-[70px] animate fadeIn-3">
-          <div className="md:w-1/2 md:order-2">
+          <div className="md:w-[30%] md:order-1">
             <div>
               <h1 className="text-3xl font-semibold tracking-wider">
                 VanaHai Bubble Tea
@@ -52,7 +52,7 @@ const Page = () => {
                 Welcome to VanaHai Bubble Tea, where we transport you to the
                 vibrant streets of Taiwan with every sip.
               </p>
-              <div className="flex justify-between pt-5">
+              <div className="flex justify-between md:flex-col pt-5">
                 <div>
                   <h3 className="font-semibold">Address</h3>
                   <p className="py-3 leading-6 text-slate-500">
@@ -70,14 +70,14 @@ const Page = () => {
                   <h3 className="font-semibold">Time Opening</h3>
                   <p className="py-3 text-slate-500">12:00 - 20:00</p>
                 </div>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col md:flex-row gap-3">
                   <Link
                     href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fvanahaibubbletea"
                     target="_blank"
                   >
                     <Tooltip
                       title="Share via Facebook"
-                      placement="left"
+                      placement="bottom"
                       className="group"
                     >
                       <IconButton>
@@ -91,7 +91,7 @@ const Page = () => {
                   >
                     <Tooltip
                       title="Share via Twitter (X)"
-                      placement="left"
+                      placement="bottom"
                       className="group"
                     >
                       <IconButton>
@@ -102,7 +102,7 @@ const Page = () => {
                   <Link href="sms:&body=https%3A%2F%2Fwww.facebook.com%2Fvanahaibubbletea">
                     <Tooltip
                       title="Share via Message"
-                      placement="left"
+                      placement="bottom"
                       className="group"
                     >
                       <IconButton>
@@ -112,7 +112,7 @@ const Page = () => {
                   </Link>
                   <Tooltip
                     title={isCopied ? 'Link copied!' : 'Copy link'}
-                    placement="left"
+                    placement="bottom"
                     className="group"
                   >
                     <IconButton onClick={handleCopyClick}>
@@ -130,7 +130,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="md:w-1/2 md:order-1">
+          <div className="md:w-[70%] md:order-2 h-[600px]">
             <div className="h-full w-full max-w-[calc(100vw-40px)] md:max-w-[900px] relative animate fadeIn-1">
               <Swiper
                 spaceBetween={10}
@@ -154,7 +154,7 @@ const Page = () => {
                     alt="logo"
                     draggable={false}
                     priority
-                    className="object-cover h-[390px] w-full rounded-xl"
+                    className="object-cover h-[600px] w-full rounded-xl"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -165,7 +165,7 @@ const Page = () => {
                     alt="logo"
                     draggable={false}
                     priority
-                    className="object-cover h-[390px] w-full rounded-xl"
+                    className="object-cover h-[600px] w-full rounded-xl"
                   />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -176,12 +176,16 @@ const Page = () => {
                     alt="logo"
                     draggable={false}
                     priority
-                    className="object-cover h-[390px] w-full rounded-xl"
+                    className="object-cover h-[600px] w-full rounded-xl"
                   />
                 </SwiperSlide>
               </Swiper>
             </div>
           </div>
+        </section>
+        <section className="relative flex justify-center mb-8">
+          <h1 className="text-3xl animate fadeIn-2">LOCATION</h1>
+          <div className="absolute bg-[#2596BE] h-[2.5px] w-8 bottom-[-8px] animate fadeIn-3"></div>
         </section>
         <section className="flex flex-col gap-8 md:flex-row h-full md:min-h-[calc(100vh-100px)] w-full pb-[40px] animate fadeIn-4">
           <div
